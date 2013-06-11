@@ -77,17 +77,25 @@ The \ac{W3C} is an international community where Member organizations, a full-ti
 
 One of the its working groups is the \ac{W3C} POI~\cite{w3c-poi} and its mission is to develop technical specifications for the representation of \acf{POI} information on the Web. Its Core defines a generic, flexible, lightweight and extensible POI data model, and one normative syntax for the data model based on \acf{XML}. Although \ac{XML} is the primary model for this specification, other formats are also possible, such as \acf{JSON}.
 
-The data model is shown in Figure~\ref{fig:data-model}. The data model is comprised of six entities:
-\begin{itemize}
-\item \textbf{POIBaseType} is the common entity from which the majority of POI entities are derived. It provides basic properties related with its authorship, licensing, modification times and identification and thus allowing each element to carry distinct information.
-\end{itemize}
+The data model is shown in Figure~\ref{fig:data-model}. A brief explanation is given next.
 
-\begin{figure*}[ht]
+\begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.8\textwidth]{images/uml.png}
 \caption{W3C POI Core Data Model}
 \label{fig:data-model}
 \end{figure*}
+
+The data model is comprised of six entities:
+\begin{itemize}
+\item \textbf{POIBaseType} is the common entity from which the majority of POI entities are derived. It provides basic properties related with its authorship, licensing, modification dates and identification allowing each element to carry distinct information;
+\item \textbf{POITermType} is an abstract entity derived from POIBaseType and adds properties for the management of categorical descriptions, such as the ones seen in category, link, label, author, license and time properties of POIType;
+\item \textbf{POIType} is an abstract entity derived from POIBaseType and adds entities for describing, labeling, categorizing and indicating the time span of a POI or group of POIs. The entity also incudes linking elements to other POIs, external web resources or metadata;
+\item \textbf{Location} is of type POIBaseType and provides a flexible description of the location of a POI. A Location can be represented using geodetic coordinates for the center of the POI, line, polygon, civic address,  undetermined or bounding box (relationship element);
+\item \textbf{POI} is of type POIType and adds the Location entity for describing the location of the POI;
+\item Finally, \textbf{POIS} is of type POIType and can have one or more children entities of type POI.
+\end{itemize}
+
 
 opendata
 
@@ -99,7 +107,7 @@ REST APIs?
 \section{API design}
 
 \subsection{W3C POI Model in the API}
-W3C POI - who it is used
+W3C POI - how it is used
 
 \subsection{API Description}
 describe the API
