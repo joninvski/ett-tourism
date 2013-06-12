@@ -5,6 +5,8 @@
 \usepackage{flafter}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{url}
 
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
@@ -39,6 +41,9 @@
       {[}{{{\color{delim}{[}}}}{1}
       {]}{{{\color{delim}{]}}}}{1},
 }
+
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 
 \begin{document}
 \input{acronyms}
@@ -146,7 +151,7 @@ In this section, we will describe some of the key features of the CitySDK Touris
 
 Before diving into its actual description, there are two fundamental aspects that should be mentioned. The first one, the API provides four types of data models:
 \begin{itemize}
-\item \textbf{Point of Interest} describes various places in a given city, ranging from monuments and museums to eating places and cultural venues; 
+\item \textbf{Point of Interest (POI)} describes various places in a given city, ranging from monuments and museums to eating places and cultural venues; 
 \item \textbf{Event} describes cultural events that happened or are about to happen in the city;
 \item \textbf{Itineraries} describe a group of Points of Interest organized in such a way that describe a given topic, e.g., the life of a given person, the history of a given region or even just specific sightseeing spots;
 \item \textbf{Categories/Tags} descibe a list of available categories and tagging terms for each of the aforementioned models.
@@ -168,75 +173,28 @@ The \textbf{Events} are modelled the same way the Points of Interest are modelle
 
 The \textbf{Itineraries} is somewhat more complex. It is defined by using the POIS entity and all of its descriptive properties. So, we have the description of the Itinerary itself by using the POIType descriptive properties and have the group of Points of Interest by using the \textit{poi} property named as \textit{pois} (so not to confuse with the mentioned list of Point of Interest). It should be mentioned that these Points of Interest are not the original Points of Interest, but are described in the context of the Itinerary, though they include the relationship with the original Point of Interest, so to fetch the original description. Finally and like the previous two, the Itineraries has a list associated with it. Much like the Point of Interest, it has a second granularity - a minimal version - in which only the description of each Itinerary is included and their Points of Interest are ommited.
 
-The \textbf{Categories/Tags} are equal in nature, but a Category provides a recursive format that the Tags do not. Both borrow from the W3C POI Data Model, but they're format is more specific to the needs of the API, rather then following the mentioned model. As such we will just show a simple example in Figure~\ref{fig:cat-format} and Figure~\ref{fig:tag-format} of the Categories and Tags format, respectively.
-
-\begin{figure}[!ht]
-\begin{lstlisting}[language=json,firstnumber=1]
-{"categories": [{
-   "id": 1,
-   "label": [{
-     "term": "primary",
-     "lang": "EN",
-     "value": "housing"
-    }
-   ],
-   "link": [{
-     "term": "icon",
-     "value": "http://someurl.com/housing.png",
-     "type": "image/png"
-    }
-   ],
-   "categories": [{
-     "id": 121,
-     "label": [{
-       "term": "primary",
-       "lang": "EN",
-       "value": "hotels"
-      }
-     ]
-    }
-   ]
-  },
-  {"id": 2,
-   "label": [{
-     "term": "primary",
-     "lang": "EN",
-     "value": "music"
-    }
-   ],
-   "categories": []
-  }
- ]
-}
-\end{lstlisting}
-\caption{Categories Message Format}
-\label{fig:cat-format}
-\end{figure}
-
-\begin{figure}[!ht]
-\begin{lstlisting}[language=json,firstnumber=1]
-{"tags": [
-  {
-   "lang": "en_GB",
-   "tag": [
-    { "value": "Rock" },
-    { "value": "Garden" },
-    { "value": "Nature" }
-   ]
-  }
- ]
-}
-\end{lstlisting}
-\caption{Tags Message Format}
-\label{fig:tag-format}
-\end{figure}
+The \textbf{Categories/Tags} are equal in nature, but a Category provides a recursive format that the Tags do not. Both borrow from the W3C POI Data Model, but they're format is more specific to the needs of the API, rather then following the mentioned model. So, a Category simply follows the POIType entity and allows recursiveness and a Tag borrows from the POIBaseType to specify a language and value.
 
 The presented models are used in the message format of the API, in the format of \ac{JSON} (like we have seen previously).
 
 \subsection{API Description}
-describe the API
+The API follows the architectural design of Fielding's dissertation on \ac{REST}~\cite{fielding}. As such, we designed a RESTful API over HTTP using JSON. So, for each of the presented models we designed various methods to obtain certain data following certain parameters. Many of the parameters are common between the POIS, Events and Itineraries, such as the ability to search for each one of them using a categorical reference, a description or using coordinates. Also, we have provided limitation parameters to allow applications to lazy load the data presented by the API. Of course, there some parameters that are specific to the data model, e.g., if we search using a description of the POIs, one can ask for either the minimal or complete version or in the case of the Events, we can search using time spans. In the case of both POIs and Events, we can also search for the relation of a single POI/Event with other POIs/Events. 
+
+As for the other two models, we have provided methods to retrieve the categorical information for each of the aforementioned models by using a list parameter indicating which type of data we wish to retrieve. Such results can also be limited by using the same limitation system mentioned above.
+
+Another feature of the API, and somewhat ignored by many REST systems, is complying to the \acf{HATEOAS} constraint of Fielding's dissertation. Such constraint states that a client interacts with a network application entirely through hypermedia provided dynamically by the application servers. As such, it needs no prior knowledge about how to interact with any particular application or server beyond a generic understanding of hypermedia. We made use of this constraint in three ways:
+\begin{enumerate}
+\item From the entry URL - the only URL that the client needs to know - we present the resources available by the visited server;
+\item Each of the Data Models has an identification (specified by a base URL and ID) that allows to fetch information about that specific model;
+\item The POIs, Events and Itineraries can be further described by using a described-by (in the links property) which indicates an entry point to another server, which can provide further data on that specific entity.
+\end{enumerate}
+
+The mentioned resources indicate the client, which models and which parameters are available in a given server. These models can be presented by the key-values found in the response message, e.g., if a \textit{find-poi} key is found, then the server supports POIs. As for the allowed searching parameters we have used the URI Template RFC~\cite{uri-template}. This way, we allowed a simple yet descriptive manner to indicate which parameters and which data is available and can be fetched.
+
+This feature allowed our system to delegate responsibilities, as we will see in Section~\ref{delegation}.
 
 \subsection{Delegation}
+\label{delegation}
 different roles: programmer, city, museum, world wide directory.
 
 
