@@ -175,6 +175,8 @@ The \textbf{Itineraries} is somewhat more complex. It is defined by using the PO
 
 The \textbf{Categories/Tags} are equal in nature, but a Category provides a recursive format that the Tags do not. Both borrow from the W3C POI Data Model, but they're format is more specific to the needs of the API, rather then following the mentioned model. So, a Category simply follows the POIType entity and allows recursiveness and a Tag borrows from the POIBaseType to specify a language and value.
 
+Most of the terms used in the POITermType are the suggestions made by the working group itself. We added three more terms regarding price, waiting time, occupation and accessibility information for handicapped people. Such terms are identified as X-citysdk/price, X-citysdk/waiting-time, X-citysdk/occupation and X-citysdk/accessibility-textual and X-citysdk/accessibility-properties, respectively.
+
 The presented models are used in the message format of the API, in the format of \ac{JSON} (like we have seen previously).
 
 \subsection{API Description}
