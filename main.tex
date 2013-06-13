@@ -61,12 +61,12 @@ Geert Monsieur\affil{4}}
  \affilnum{1}Instituto Superior T\'ecnico, Avenida Rovisco Pais 1, 1049-001 Lisboa, Portugal\\
  \affilnum{2}INESC-ID, Av. Prof. Dr. Cavaco Silva, 2744-016 Porto Salvo, Portugal\\
  \affilnum{3}ISA\\
- \affilnum{4}Geert's address
+ \affilnum{4}European Research Institute in Serivce Science (ERISS), Tilburg University, Warandelaan 2, 5037AB Tilburg, The Netherlands
 }
 \corraddr{E-mail: ricardo.pereira@inesc-id.pt}
 
 \begin{abstract}
-To be written latter.
+To be written later.
 \end{abstract}
 
 \maketitle
@@ -99,6 +99,9 @@ make way for delegation and common developer keys?
 
 
 \subsection{CitySDK}
+
+\emph{Geert: I guess I can quite easily co-contribute here. Perhaps it might be useful to move this section somewhat further, as it is simply our case study that validates our proposed approach/architecture, right?}
+
 Talk about the project.
 
 Briefly introduce the API.
@@ -116,7 +119,7 @@ This is a test citation, to be removed later~\cite{1509968}.
 \label{section:poi-wg}
 The \ac{W3C} is an international community where Member organizations, a full-time staff, and the public work together to develop Web standards. This community is led by Web inventor Tim Berners-Lee and CEO Jeffrey Jaffe. 
 
-One of the its working groups is the \ac{W3C} POI~\cite{w3c-poi} and its mission is to develop technical specifications for the representation of \acf{POI} information on the Web. Its Core defines a generic, flexible, lightweight and extensible POI data model, and one normative syntax for the data model based on \acf{XML}. Although \ac{XML} is the primary model for this specification, other formats are also possible, such as \acf{JSON}.
+One of the its working groups is the \ac{W3C} POI~\cite{w3c-poi} and its mission is to develop technical specifications for the representation of \acf{POI} information on the Web. Its core defines a generic, flexible, lightweight and extensible POI data model, and one normative syntax for the data model based on \acf{XML}. Although \ac{XML} is the primary model for this specification, other formats are also possible, such as \acf{JSON}.
 
 The data model is shown in Figure~\ref{fig:data-model}. A brief explanation is given next.
 
@@ -147,6 +150,9 @@ REST APIs?
 
 
 \section{API Design}
+
+\emph{Geert: I believe I can contribute in this part (e.g. explaining why the use of POI is important and how we cope with important SOA design principles such as coupling, cohesion and granularity).}
+
 In this section, we will describe some of the key features of the CitySDK Tourism API. We will describe the message format model, how the API is designed and some features that came along with it.
 
 Before diving into its actual description, there are two fundamental aspects that should be mentioned. The first one, the API provides four types of data models:
@@ -195,6 +201,9 @@ This feature allowed our system to delegate responsibilities, as we will see in 
 
 \subsection{Delegation}
 \label{delegation}
+
+\emph{Geert: what exactly do we want to explain in this section?}
+
 different roles: programmer, city, museum, world wide directory.
 
 
