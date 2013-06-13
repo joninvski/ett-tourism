@@ -125,7 +125,7 @@ The data model is shown in Figure~\ref{fig:data-model}. A brief explanation is g
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.8\textwidth]{images/uml}
+\includegraphics[width=0.9\textwidth]{images/uml}
 \caption{W3C POI Core Data Model}
 \label{fig:data-model}
 \end{figure*}
@@ -160,7 +160,7 @@ Before diving into its actual description, there are two fundamental aspects tha
 \item \textbf{Point of Interest (POI)} describes various places in a given city, ranging from monuments and museums to eating places and cultural venues; 
 \item \textbf{Event} describes cultural events that happened or are about to happen in the city;
 \item \textbf{Itineraries} describe a group of Points of Interest organized in such a way that describe a given topic, e.g., the life of a given person, the history of a given region or even just specific sightseeing spots;
-\item \textbf{Categories/Tags} descibe a list of available categories and tagging terms for each of the aforementioned models.
+\item \textbf{Categories/Tags} describe a list of available categories and tagging terms for each of the aforementioned models.
 \end{itemize}
 
 Each model can also be grouped into a list of its own type, that is, each data model has a listing model where each element is either a Point of Interest, Event, Itinerary or a Category/Tag.
@@ -181,18 +181,21 @@ The \textbf{Itineraries} is somewhat more complex. It is defined by using the PO
 
 The \textbf{Categories/Tags} are equal in nature, but a Category provides a recursive format that the Tags do not. Both borrow from the W3C POI Data Model, but they're format is more specific to the needs of the API, rather then following the mentioned model. So, a Category simply follows the POIType entity and allows recursiveness and a Tag borrows from the POIBaseType to specify a language and value.
 
+Most of the terms used in the POITermType are the suggestions made by the working group itself. We added three more terms regarding price, waiting time, occupation and accessibility information for handicapped people. Such terms are identified as X-citysdk/price, X-citysdk/waiting-time, X-citysdk/occupation and X-citysdk/accessibility-textual and X-citysdk/accessibility-properties, respectively.
+
 The presented models are used in the message format of the API, in the format of \ac{JSON} (like we have seen previously).
 
 \subsection{API Description}
-The API follows the architectural design of Fielding's dissertation on \ac{REST}~\cite{fielding}. As such, we designed a RESTful API over HTTP using JSON. So, for each of the presented models we designed various methods to obtain certain data following certain parameters. Many of the parameters are common between the POIS, Events and Itineraries, such as the ability to search for each one of them using a categorical reference, a description or using coordinates. Also, we have provided limitation parameters to allow applications to lazy load the data presented by the API. Of course, there some parameters that are specific to the data model, e.g., if we search using a description of the POIs, one can ask for either the minimal or complete version or in the case of the Events, we can search using time spans. In the case of both POIs and Events, we can also search for the relation of a single POI/Event with other POIs/Events. 
+\label{api-description}
+The API follows the architectural design of Fielding's dissertation on \ac{REST}~\cite{fielding}. As such, we designed a RESTful API over HTTP using JSON. So, for each of the presented models we designed various methods to obtain certain data following certain parameters. Many of the parameters are common between the POIS, Events and Itineraries, such as the ability to search for each one of them using a categorical reference, a description or using coordinates. Also, we have provided limitation parameters to allow applications to lazy load the data presented by the API. Of course, there are some parameters that are specific to the data model, e.g., if we search using a description of the POIs, one can ask for either the minimal or complete version or in the case of the Events, we can search using time spans. In the case of both POIs and Events, we can also search for the relation of a single POI/Event with other POIs/Events. One final method is the ability to search using QR Code or Barcodes; using a single method and providing the textual or bar code information, we retrieve any POIs, Events or Itinerary that match such information.
 
 As for the other two models, we have provided methods to retrieve the categorical information for each of the aforementioned models by using a list parameter indicating which type of data we wish to retrieve. Such results can also be limited by using the same limitation system mentioned above.
 
 Another feature of the API, and somewhat ignored by many REST systems, is complying to the \acf{HATEOAS} constraint of Fielding's dissertation. Such constraint states that a client interacts with a network application entirely through hypermedia provided dynamically by the application servers. As such, it needs no prior knowledge about how to interact with any particular application or server beyond a generic understanding of hypermedia. We made use of this constraint in three ways:
 \begin{enumerate}
-\item From the entry URL - the only URL that the client needs to know - we present the resources available by the visited server;
+\item From the entry URL - the only URL that the client needs to know - we present the resources made available by the visited server;
 \item Each of the Data Models has an identification (specified by a base URL and ID) that allows to fetch information about that specific model;
-\item The POIs, Events and Itineraries can be further described by using a described-by (in the links property) which indicates an entry point to another server, which can provide further data on that specific entity.
+\item The POIs, Events and Itineraries can be further described by using a \textit{described-by} (in the links property) which indicates an entry point to another server, which can provide further data on that specific entity.
 \end{enumerate}
 
 The mentioned resources indicate the client, which models and which parameters are available in a given server. These models can be presented by the key-values found in the response message, e.g., if a \textit{find-poi} key is found, then the server supports POIs. As for the allowed searching parameters we have used the URI Template RFC~\cite{uri-template}. This way, we allowed a simple yet descriptive manner to indicate which parameters and which data is available and can be fetched.
@@ -201,11 +204,27 @@ This feature allowed our system to delegate responsibilities, as we will see in 
 
 \subsection{Delegation}
 \label{delegation}
+<<<<<<< HEAD
 
 \emph{Geert: what exactly do we want to explain in this section?}
 
 different roles: programmer, city, museum, world wide directory.
+=======
+As mentioned in Section~\ref{api-description} we designed an API based on hypermedia content. Such feature allows the use of delegation between the various entities involved in the system: a world-wide directory containing the endpoints of CitySDK-enabled servers; the city servers providing CitySDK data; and a more granular server provided by museums or any other venues which give more detailed information about that specific POI, Event or Itinerary. Figure~\ref{fig:delegation} shows a diagram of the interactions between each entity.
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.4\textwidth]{images/delegation}
+\caption{Delegation Model}
+\label{fig:delegation}
+\end{figure}
+
+Further explaining the diagram, a client visits the world-wide directory and provides a given geodetic coordinates and an API key. The world-wide directory then directs the client based on the provided set of  coordinates and on the validation of the API key.
+
+The client then visits the provided server address, in which the resources are provided. The client then queries the given server for any of the available data. 
+>>>>>>> 2239e364b5dff7986aa34fa5e7fcca2e4c666c61
+
+The client may further detail the information given by the server by visiting a museum or venue's server. Such server can be known if the provided resource has a \textit{described-by} parameter in the \textit{links} property containing the endpoint URL.
 
 \section{Implementation}
 Talk about Lisbon's implementation
