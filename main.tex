@@ -54,7 +54,7 @@
 
 \title{CitySDK Tourism API - Building value around open data}
 \author{Pedro Cruz\affil{1},
-Ricardo Lopes Pereira\affil{2}\affil{1}\corrauth\,
+Ricardo Lopes Pereira\affil{2}\textsuperscript{,}\affil{1}\corrauth\,
 Andr\'e Oliveira\affil{3} and 
 Geert Monsieur\affil{4}}
 \address{
@@ -111,12 +111,14 @@ This is a test citation, to be removed later~\cite{1509968}.
 
 
 \section{Related work}
+%add more description as we add more subsections
+In this section we will present some of the studies and working groups related with smart cities in general.  
 
-\subsection{\acf{W3C} POI Working Group}
+\subsection{\acf{W3C} \acf{POI} Working Group}
 \label{section:poi-wg}
 The \ac{W3C} is an international community where Member organizations, a full-time staff, and the public work together to develop Web standards. This community is led by Web inventor Tim Berners-Lee and CEO Jeffrey Jaffe. 
 
-One of the its working groups is the \ac{W3C} POI~\cite{w3c-poi} and its mission is to develop technical specifications for the representation of \acf{POI} information on the Web. Its Core defines a generic, flexible, lightweight and extensible POI data model, and one normative syntax for the data model based on \acf{XML}. Although \ac{XML} is the primary model for this specification, other formats are also possible, such as \acf{JSON}.
+One of the its working groups is the \ac{W3C} POI~\cite{w3c-poi} and its mission is to develop technical specifications for the representation of \ac{POI} information on the Web. Its Core defines a generic, flexible, lightweight and extensible \ac{POI} data model, and one normative syntax for the data model based on \acf{XML}. Although \ac{XML} is the primary model for this specification, other formats are also possible, such as \acf{JSON}.
 
 The data model is shown in Figure~\ref{fig:data-model}. A brief explanation is given next.
 
@@ -127,14 +129,14 @@ The data model is shown in Figure~\ref{fig:data-model}. A brief explanation is g
 \label{fig:data-model}
 \end{figure*}
 
-The data model is comprised of six entities:
+The data model comprises of six entities:
 \begin{itemize}
 \item \textbf{POIBaseType} is the common entity from which the majority of POI entities are derived. It provides basic properties related with its authorship, licensing, modification dates and identification allowing each element to carry distinct information;
-\item \textbf{POITermType} is an abstract entity derived from POIBaseType and adds properties for the management of categorical descriptions, such as the ones seen in category, link, label, author, license and time properties of POIType;
-\item \textbf{POIType} is an abstract entity derived from POIBaseType and adds entities for describing, labeling, categorizing and indicating the time span of a POI or group of POIs. The entity also incudes linking elements to other POIs, external web resources or metadata;
-\item \textbf{Location} is of type POIBaseType and provides a flexible description of the location of a POI. A Location can be represented using geodetic coordinates for the center of the POI, line, polygon, civic address,  undetermined or bounding box (relationship element);
-\item \textbf{POI} is of type POIType and adds the Location entity for describing the location of the POI;
-\item Finally, \textbf{POIS} is of type POIType and can have one or more children entities of type POI.
+\item \textbf{POITermType} is an abstract entity derived from POIBaseType and adds properties for the management of categorical descriptions (such as the ones seen in category), link, label, author, license and time properties of POIType;
+\item \textbf{POIType} is an abstract entity derived from POIBaseType and adds entities for describing, labeling, categorizing and indicating the time span of a POI or group of POIs. This entity also incudes linking elements to other POIs, external web resources or metadata;
+\item \textbf{Location} is an entity the inherits from POIBaseType and provides a flexible description of the location of a POI. A Location can be represented using geodetic coordinates for the center of the POI, line, polygon, civic address,  undetermined (representing unresolved locations) or bounding box (relationship element);
+\item \textbf{POI} inherits from POIType and adds the Location entity for describing the location of the POI;
+\item Finally, \textbf{POIS} also derives from POIType and can have one or more children entities of type POI.
 \end{itemize}
 
 This model is used within our API to model various types of data, as described in section~\ref{section:api-design}.
@@ -149,17 +151,15 @@ REST APIs?
 \section{API Design}
 In this section, we will describe some of the key features of the CitySDK Tourism API. We will describe the message format model, how the API is designed and some features that came along with it.
 
-Before diving into its actual description, there are two fundamental aspects that should be mentioned. The first one, the API provides four types of data models:
+Before diving into a deeper description of the CitySDK API there are three fundamental aspects that should be mentioned. The API provides the following: four types of data models, methods to retrieve information concerning these same data models and also, methods and description fields that retrieve the relationships between each of them. Regarding the data models we provide the following:
 \begin{itemize}
-\item \textbf{Point of Interest (POI)} describes various places in a given city, ranging from monuments and museums to eating places and cultural venues; 
+\item \textbf{\ac{POI}} describes various places in a given city, ranging from monuments and museums to eating places and cultural venues; 
 \item \textbf{Event} describes cultural events that happened or are about to happen in the city;
-\item \textbf{Itineraries} describe a group of Points of Interest organized in such a way that describe a given topic, e.g., the life of a given person, the history of a given region or even just specific sightseeing spots;
+\item \textbf{Itineraries} describe a group of \acp{POI} organized in such a way that they form an itinerary of a given topic, e.g., the life of a given person, the history of a given region or even just specific sightseeing spots;
 \item \textbf{Categories/Tags} describe a list of available categories and tagging terms for each of the aforementioned models.
 \end{itemize}
 
-Each model can also be grouped into a list of its own type, that is, each data model has a listing model where each element is either a Point of Interest, Event, Itinerary or a Category/Tag.
-
-The second aspect is that the API is designed in a way that provides not only information about the three mentioned data models individually, but also the relationship between them and provides specific methods to retrieve specific information.
+Each model can also be grouped into a list of its own type, that is, each data model has a listing model where each element is either a \ac{POI}, Event, Itinerary or a Category/Tag.
 
 We now present the key features of the API.
 
@@ -167,15 +167,15 @@ We now present the key features of the API.
 \label{section:api-design}
 As mentioned before, our API provides four data models: Points of Interest, Events, Itineraries and Categorization data. These models are mapped using the W3C POI Model presented in section~\ref{section:poi-wg}. We will now present how we modelled each data type.
 
-The \textbf{Points of Interest} are the most easily modelled element of the API. Since the W3C POI Model is specific for this type of data we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the POI entities directly. It should be mentioned that, since the Point of Interest is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of Points of Interest. Such list is described by the POIS entity, but it does not use the descriptive properties of POIType.
+The \textbf{\acf{POI}} are the most easily modelled element of the API. Since the W3C POI Model is specific for this type of data we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the \textit{POI} entities directly. It should be mentioned that, since the \ac{POI} is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description, that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of \ac{POI}. Such list is described by the \textit{POIS} entity, but it does not use the descriptive properties of \textit{POIType}.
 
-The \textbf{Events} are modelled the same way the Points of Interest are modelled, but instead of having a Location entity completly specified, we used the \textit{relationship} property of the same entity to relate a given Event to a Point of Interest and ommited the \textit{address} and \textit{undetermined} properties. So, we have an Event completly described using the POI entity and use the \textit{relationship} property to also specify and descibe the location of the Event. An Events list is modeled using the POIS entity, much like the Points of Interest, but it does not have a different granularity and the root name is \textit{event} instead of \textit{poi}.
+The \textbf{Events} are modelled the same way the \acp{POI} were, but instead of having a \textit{Location} entity completly specified, we used the \textit{relationship} property of the same entity to relate a given Event to a \ac{POI} and ommited the \textit{address} and \textit{undetermined} properties. So, we have an Event completly described using the \textit{POI} entity and use the \textit{relationship} property to also specify and descibe the location of the Event. An Events list is modeled using the \textit{POIS} entity, much like the \acp{POI}, but it does not have a different granularity and the root name is \textit{event} instead of \textit{poi}.
 
-The \textbf{Itineraries} is somewhat more complex. It is defined by using the POIS entity and all of its descriptive properties. So, we have the description of the Itinerary itself by using the POIType descriptive properties and have the group of Points of Interest by using the \textit{poi} property named as \textit{pois} (so not to confuse with the mentioned list of Point of Interest). It should be mentioned that these Points of Interest are not the original Points of Interest, but are described in the context of the Itinerary, though they include the relationship with the original Point of Interest, so to fetch the original description. Finally and like the previous two, the Itineraries has a list associated with it. Much like the Point of Interest, it has a second granularity - a minimal version - in which only the description of each Itinerary is included and their Points of Interest are ommited.
+The \textbf{Itineraries} is somewhat more complex. It is defined by using the \textit{POIS} entity and all of its descriptive properties. So, we have the description of the Itinerary itself by using the \textit{POIType} descriptive properties and have the group of \acp{POI} by using the \textit{poi} property named as \textit{pois} (so not to confuse with the mentioned list of \ac{POI}). It should be mentioned that these \acp{POI} are not the original \acp{POI}, but are described in the context of the Itinerary, though they include the relationship with its original counterpart, so to fetch the actual description. Finally and like the previous two, the Itineraries has a list associated with it. Much like the \ac{POI}, it has a second granularity - a minimal version - in which only the description of each Itinerary is included and their \acp{POI} are ommited.
 
-The \textbf{Categories/Tags} are equal in nature, but a Category provides a recursive format that the Tags do not. Both borrow from the W3C POI Data Model, but they're format is more specific to the needs of the API, rather then following the mentioned model. So, a Category simply follows the POIType entity and allows recursiveness and a Tag borrows from the POIBaseType to specify a language and value.
+The \textbf{Categories/Tags} are equal in nature, but a Category provides a recursive format that the Tags do not. Both borrow from the W3C POI Data Model, but their format is more specific to the needs of the API, rather than following the mentioned model. So, a Category simply follows the \textit{POIType} entity and allows recursiveness and a Tag borrows its properties from the \textit{POIBaseType} to specify a language and value.
 
-Most of the terms used in the POITermType are the suggestions made by the working group itself. We added three more terms regarding price, waiting time, occupation and accessibility information for handicapped people. Such terms are identified as X-citysdk/price, X-citysdk/waiting-time, X-citysdk/occupation and X-citysdk/accessibility-textual and X-citysdk/accessibility-properties, respectively.
+At last, most of the terms used in the POITermType are the suggestions made by the working group itself. However, we've added three more terms regarding price, waiting time, occupation and accessibility information for handicapped people. Such terms are identified as X-citysdk/price, X-citysdk/waiting-time, X-citysdk/occupation and X-citysdk/accessibility-textual and X-citysdk/accessibility-properties, respectively.
 
 The presented models are used in the message format of the API, in the format of \ac{JSON} (like we have seen previously).
 
