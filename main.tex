@@ -92,6 +92,8 @@ Programmers still have to deal with a small market.
 Tourists still have difficulties finding the specific apps for each city.
 
 \subsection{Challenges}
+\label{s:challenges}
+
 Common API when intersection among available data is small.
 Flexibility to accommodate further usages not yet envisioned.
 
@@ -99,8 +101,7 @@ make way for delegation and common developer keys?
 
 
 \subsection{CitySDK}
-
-\emph{Geert: I guess I can quite easily co-contribute here. Perhaps it might be useful to move this section somewhat further, as it is simply our case study that validates our proposed approach/architecture, right?}
+\label{s:citysdk}
 
 Talk about the project.
 
@@ -153,9 +154,11 @@ REST APIs?
 
 \section{API Design}
 
-\emph{Geert: I believe I can contribute in this part (e.g. explaining why the use of POI is important and how we cope with important SOA design principles such as coupling, cohesion and granularity).}
-
 In this section, we will describe some of the key features of the CitySDK Tourism API. We will describe the message format model, how the API is designed and some features that came along with it.
+
+In order to address the challenges presented in Section \ref{s:challenges} and the broader goals of CitySDK (see Section \ref{s:citysdk}) a sound methodology is of critical importance to avoid the pitfalls of deploying an uncontrolled maze of APIs \cite{papazoglou2007,monsieur2012}. The well-adopted service oriented architecture (SOA) development lifecycle (SDLC) \cite{papazoglou2007} provides a solid foundation for service enablement in an orderly fashion so that services can be efficiently used in SOA-based smart city applications. The methodology is based on continuous refinement using a closed loop approach that facilitates designing SOA solutions (e.g. European smart city app) as assemblies of services in which each service assembly is a managed first class aspect of the solution, and, hence, amenable to analysis and change. Developers can then view an smart city app(lication) as a choreographed set of service interactions.
+
+SDLC relies on three fundamental SOA design principles: coupling, cohesion and granularity. These design principles need to guarantee that services are self-contained and come equipped with clearly defined boundaries and interfaces to allow for service composability. Standards and reference models (e.g. W3C POI) are crucial in coping with such design principles. Typically, these standards improve SOA design by defining (sector-specific) business concepts that have an high-degree of cohesion and low-degree of coupling. The design of the tourism API is fundamentally based on W3C POI (see Section \ref{section:w3cpoi}). By reusing existing standards such as W3C POI the chance for adoption is substantially increased. Furthermore, it reduces coupling because developers are not bound to use message formats linked to a specific service implementation \cite{papazoglou2007}.
 
 Before diving into a deeper description of the CitySDK API there are three fundamental aspects that should be mentioned. The API provides the following: four types of data models, methods to retrieve information concerning these same data models and also, methods and description fields that retrieve the relationships between each of them. Regarding the data models we provide the following:
 \begin{itemize}
@@ -170,7 +173,7 @@ Each model can also be grouped into a list of its own type, that is, each data m
 We now present the key features of the API.
 
 \subsection{W3C POI Model in the API}
-\label{section:api-design}
+\label{section:w3cpoi}
 As mentioned before, our API provides four data models: Points of Interest, Events, Itineraries and Categorization data. These models are mapped using the W3C POI Model presented in section~\ref{section:poi-wg}. We will now present how we modelled each data type.
 
 The \textbf{\acf{POI}} are the most easily modelled element of the API. Since the W3C POI Model is specific for this type of data we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the \textit{POI} entities directly. It should be mentioned that, since the \ac{POI} is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description, that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of \ac{POI}. Such list is described by the \textit{POIS} entity, but it does not use the descriptive properties of \textit{POIType}.
