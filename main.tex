@@ -111,7 +111,12 @@ The path taken by municipalities has also been traced by other entities related 
 \subsection{CitySDK}
 \label{s:citysdk}
 
-One of the most important goals in an European ICT PSP project entitled CitySDK, is to create an ecosystem in which the work of an application developer is facilitated by having unified and open city interfaces available across different cities in Europe. This means that it should be relatively easy for developers to make use of touristic data coming from multiple European cities, because in such an ecosystem data access is open and unified. CitySDK designs and develops three separate APIs: one for participation services (e.g. FixMyStreet), one for mobility data (e.g. public transport data) and one for  touristic information. In this article, we present the third API, referred to as the \emph{CitySDK Tourism API}, and show how it addresses the problems that municipalities and developers face (as described in Section \ref{s:motivation}). Endpoints for the CitySDK Tourism API are being implemented in Amsterdam, Helsinki, Lamia, Lisbon and Rome.
+One of the most important goals in an European ICT PSP project entitled CitySDK, is to create an ecosystem in which the work of an application developer is facilitated by having unified and open city interfaces available across different cities in Europe.
+This means that it should be relatively easy for developers to make use of touristic data coming from multiple European cities, because in such an ecosystem data access is open and unified.
+CitySDK designs and develops three separate APIs: one for participation services (e.g. FixMyStreet), one for mobility data (e.g. public transport data) and one for  touristic information.
+In this article, we present the third API, referred to as the \emph{CitySDK Tourism API}, and show how it addresses the problems that municipalities and developers face (as described in Section \ref{s:motivation}).
+Endpoints for the CitySDK Tourism API are being implemented in Amsterdam, Helsinki, Lamia, Lisbon and Rome.
+
 
 political awarenes
 talk about the project
@@ -119,9 +124,6 @@ Common API when intersection among available data is small.
 Flexibility to accommodate further usages not yet envisioned.
 
 make way for delegation and common developer keys?
-
-
-
 
 Talk about the project.
 
@@ -168,9 +170,17 @@ This model is used within our API to model various types of data, as described i
 
 \subsection{Open311 GeoReport API}
 
-The Open311 GeoReport API is a standard API that is quite popular among cities in the United States of America. The API allows to both view and report issues which government entities like cities are responsible for addressing.  Traditionally, such issues have been handled by custom web forms or phone based call centers (sometimes using the 311 phone number or other short-code). The Open311 GeoReport API is designed to allow both government and third party developers to create new applications for submitting and viewing the reports. The current specification is focused on location-based non-emergency issues such as graffiti, potholes, and street cleaning.
+The Open311 GeoReport API is a standard API that is quite popular among cities in the United States of America.
+The API allows to both view and report issues which government entities like cities are responsible for addressing.
+Traditionally, such issues have been handled by custom web forms or phone based call centers (sometimes using the 311 phone number or other short-code).
+The Open311 GeoReport API is designed to allow both government and third party developers to create new applications for submitting and viewing the reports.
+The current specification is focused on location-based non-emergency issues such as graffiti, potholes, and street cleaning.
 
-The API is a RESTful API over HTTP that supports both XML and JSON. It consists of two main kinds of resources: \emph{services} (i.e. things that a municipality can offer to a citizen) and \emph{service requests} (i.e. an issue reported by a citizen). The methods that are included in the API support a sequence of interactions where a person first sees a list of available service types, selects one and creates a new service request, and then is able to track the status of that request and other requests. However, each method can be accessed independently and some applications may only be focused on querying existing service requests to do analytics. Similarly, the CitySDK Tourism API supports different kind of interactions (e.g. listing routes, listing the POIs of a route, retrieving a POI, etc.).
+The API is a RESTful API over HTTP that supports both XML and JSON.
+It consists of two main kinds of resources: \emph{services} (i.e. things that a municipality can offer to a citizen) and \emph{service requests} (i.e. an issue reported by a citizen).
+The methods that are included in the API support a sequence of interactions where a person first sees a list of available service types, selects one and creates a new service request, and then is able to track the status of that request and other requests.
+However, each method can be accessed independently and some applications may only be focused on querying existing service requests to do analytics.
+Similarly, the CitySDK Tourism API supports different kind of interactions (e.g. listing routes, listing the POIs of a route, retrieving a POI, etc.).
 
 \subsection{Other related work???}
 
