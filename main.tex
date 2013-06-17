@@ -277,6 +277,13 @@ For the CitySDK platform's database, an open-source high performance document da
 
 Although Data Adapter modules are not part of the CitySDK platform's itself, they are essential for the platform life and perform the important task of populating the platform with valuable data. These modules have to be CitySDK-compliant on the data output side and datasource-compliant on the data input side, transforming the datasource's data from its native format into the W3C POI format liable to be inserted into the platform. For the case of the Lisbon implementation, a single database containing aggregated data from points of interest and events (including the relation of the point of interest where events occur whenever possible) was identified, so only a Data Adapter module was needed to be implemented for the two types of data. The implemented module runs as a service and, as the volatility of the data is very low (at maximum few records are updated during a day), the data updating process runs once a day during the empty hours. The data updating process consists on inserting the new data elements found on the city's database on the CitySDK platform, update any change perceived on the city's database to the CitySDK platform and cleaning up the deleted data elements from the CitySDK platform. Regarding itineraries, Lisbon municipality provides three distinct static elements (no update is made to them) and publishes them manually to be inserted in the CitySDK platform on the form of text files; these text files are imported to the platform using a Data Adapter that runs once as a stand-alone module. In future, when Lisbon municipality computerizes the itineraries data, the Data adapter can be converted to a service similar to the one used for importation of points of interest and events which automatically imports/updates the data elements.
 
+\subsection{Client-side stubs}
+As a final mention for the implementation details we present our client stubs. 
+
+To facilitade the development cycles of potential developers, we provided four libraries which abstract the use of the API and parsing of the received data. These libraries are very similar in usage as they provide equal naming conventions for methods to perform requests, as well, as to read any of the received data.
+
+The libraries are written in Java, JavaScript/jQuery, PHP and Objective-C and are available online as well as their corresponding documentation and usage examples.
+
 \section{Evaluation}
 
 \subsection{Compliance to the CitySDK performance requirements}
