@@ -66,19 +66,19 @@ Geert Monsieur\affil{4}}
 \corraddr{E-mail: ricardo.pereira@inesc-id.pt}
 
 \begin{abstract}
-Tourism is a major social and cultural activity with relevant economic impact.
+Tourism is a major social and cultural activity with a relevant economic impact.
 In an effort to promote their attractions with tourists, some cities have adopted the open-data model, publishing data for programmers to use in their own applications.
-Unfortunately each city does it in its own way.
+Unfortunately, each city publishes touristic information in its own way.
 
 A common API for accessing this information would enable applications to use data from several cities, increasing their potential market while reducing the development costs.
-This would benefit developers, cities, which benefit from increased exposure, and tourists, who benefit from better and cheaper applications due to competition.
+This would help developers in making cross-city applications. It provides cities with an increased exposure. Finally, the tourists benefit from better and cheaper applications due to the boosted competition.
 
 This article presents the CitySDK Tourism API, which aims to provide access to information about Points of Interest, Events and Itineraries.
 %The API is based on the data model proposed by the W3C POI WG.
 It was designed in order to be used by municipalities, regional or national governments as well as other public or private entities interested in publishing touristic information.
 The API comprehends a delegation model which enables one server to guide an application towards other servers which have more detailed information, effectively allowing applications to access worldwide information by only knowing a single API endpoint.
 
-The API was created in the context of the CitySDK project, through which a server reference implementation, client libraries and a set of demonstration applications have also been made available, in order to facilitate adoption by cities and application developers.
+The API was created and validated in the context of the CitySDK project, through which a server reference implementation, client libraries and a set of demonstration applications have also been made available, in order to facilitate adoption by cities and application developers.
 
 \end{abstract}
 
@@ -135,7 +135,7 @@ This means that it should be relatively easy for developers to make use of touri
 \ac{citysdk} designs and develops three separate APIs: one for participation services (e.g. FixMyStreet), one for mobility data (e.g. public transport data) and one for touristic information. 
  
 In this article, we present the third API, referred to as the \emph{CitySDK Tourism API}, and show how it addresses the problems that municipalities and developers face. 
-The CitySDK Tourism API enables access to information about \ac{poi}, events and thematic itineraries.
+The CitySDK Tourism API enables access to information about \ac{POIs}, events and thematic itineraries.
 It can be implemented by municipalities (the main focus in the scope of the \ac{citysdk} project) other government levels and other private or public organisations such as museums or concert halls.
 Endpoints for the CitySDK Tourism API are being implemented in Amsterdam, Helsinki, Lamia, Lisbon and Rome.
 
@@ -154,7 +154,7 @@ Finally, Section \ref{s:conclusions} presents the conclusions and describes futu
 \label{s:related-work}
 The need for common data representation or APIs for tourism data was been present for some time.
 In this section we present two major efforts in this field:  EventsML-G2 and \ac{W3C} \ac{POI} \ac{wg}.
-We also discuss the Open311 GeoReport API as an example a smartcity API which has successfully been implemented across several cities.
+We also discuss the Open311 GeoReport API as an example of a smart city API which has successfully been implemented across several cities.
 
 \subsection{EventsML-G2}
 EventsML-G2 is a standard for collecting and distributing structured event information, aimed at conveying event information in a news industry environment~\cite{eventsml}. 
@@ -165,7 +165,7 @@ One of the main features of the EventsML-G2 standard is it ability to transmit i
 Its comprehensiveness and extensibility makes the standard suitable for covering a big magnitude of event types and cover multiple information facts about a specific event either by literal text (free text) or by codes from specified vocabularies. 
 
 Event though EventsML-G2 can convey information about a \ac{poi} where an event takes place, that is not its focus.
-Also, as it strives to represent all types of events, EventsML-G2 is a complex standard, making it difficult to implement and use.
+Moreover, as it strives to represent all types of events, EventsML-G2 is a complex standard, making it difficult to implement and use.
 
 \subsection{\acs{W3C} \acl{POI} \acs{wg}}
 \label{section:poi-wg}
@@ -178,14 +178,12 @@ Although \ac{XML} is the primary model for this specification, other formats are
 
 The data model is shown in Figure~\ref{fig:data-model}~\cite{w3c-poi}.
 A brief explanation is given next.
-
 \begin{figure*}
 \centering
 \includegraphics[width=0.9\textwidth]{images/uml}
 \caption{W3C POI Core Data Model}
 \label{fig:data-model}
 \end{figure*}
-
 The data model comprises six entities:
 \begin{itemize}
 \item \textbf{POIBaseType} is the common entity from which the majority of \ac{POI} entities are derived.
@@ -220,26 +218,19 @@ Similarly, the \ac{citysdk} Tourism API supports different kind of interactions 
 \label{s:tourim-api}
 In this section, we will describe some of the key features of the CitySDK Tourism API. We will describe the message format model, how the API is designed and some features that came along with it.
 
-<<<<<<< HEAD
-In order to address the challenges presented in Section \ref{s:motivation} and the broader goals of CitySDK (see Section \ref{s:citysdk}) a sound methodology is of critical importance to avoid the pitfalls of deploying an uncontrolled maze of APIs \cite{papazoglou2007,monsieur2012}.
+In order to address the broader goals of CitySDK (see Section \ref{s:citysdk}) a sound methodology is of critical importance to avoid the pitfalls of deploying an uncontrolled maze of APIs \cite{papazoglou2007,monsieur2012}.
 The well-adopted service oriented architecture (SOA) development lifecycle (SDLC) \cite{papazoglou2007} provides a solid foundation for service enablement in an orderly fashion so that services can be efficiently used in SOA-based smart city applications.
 The methodology is based on continuous refinement using a closed loop approach that facilitates designing SOA solutions (e.g. European smart city app) as assemblies of services in which each service assembly is a managed first class aspect of the solution, and, hence, amenable to analysis and change. Developers can then view an smart city app(lication) as a choreographed set of service interactions.
 
-SDLC relies on three fundamental SOA design principles: coupling, cohesion and granularity. These design principles need to guarantee that services are self-contained and come equipped with clearly defined boundaries and interfaces to allow for service composability.
-Standards and reference models (e.g. W3C POI) are crucial in coping with such design principles. Typically, these standards improve SOA design by defining (sector-specific) business concepts that have an high-degree of cohesion and low-degree of coupling.
+SDLC relies on three fundamental SOA design principles: coupling, cohesion and granularity.
+These design principles need to guarantee that services are self-contained and come equipped with clearly defined boundaries and interfaces to allow for service composability. Standards and reference models (e.g. W3C POI) are crucial in coping with such design principles.
+Typically, these standards improve SOA design by defining (sector-specific) business concepts that have an high-degree of cohesion and low-degree of coupling.
 The design of the tourism API is fundamentally based on W3C POI (see Section \ref{section:w3cpoi}).
 By reusing existing standards such as W3C POI the chance for adoption is substantially increased. Furthermore, it reduces coupling because developers are not bound to use message formats linked to a specific service implementation \cite{papazoglou2007}.
 
 Before diving into a deeper description of the CitySDK API there are three fundamental aspects that should be mentioned.
 The API provides the following: four types of data models, methods to retrieve information concerning these same data models and also, methods and description fields that retrieve the relationships between each of them.
 Regarding the data models we provide the following:
-=======
-In order to address the broader goals of CitySDK (see Section \ref{s:citysdk}) a sound methodology is of critical importance to avoid the pitfalls of deploying an uncontrolled maze of APIs \cite{papazoglou2007,monsieur2012}. The well-adopted service oriented architecture (SOA) development lifecycle (SDLC) \cite{papazoglou2007} provides a solid foundation for service enablement in an orderly fashion so that services can be efficiently used in SOA-based smart city applications. The methodology is based on continuous refinement using a closed loop approach that facilitates designing SOA solutions (e.g. European smart city app) as assemblies of services in which each service assembly is a managed first class aspect of the solution, and, hence, amenable to analysis and change. Developers can then view an smart city app(lication) as a choreographed set of service interactions.
-
-SDLC relies on three fundamental SOA design principles: coupling, cohesion and granularity. These design principles need to guarantee that services are self-contained and come equipped with clearly defined boundaries and interfaces to allow for service composability. Standards and reference models (e.g. W3C POI) are crucial in coping with such design principles. Typically, these standards improve SOA design by defining (sector-specific) business concepts that have an high-degree of cohesion and low-degree of coupling. The design of the tourism API is fundamentally based on W3C POI (see Section \ref{section:w3cpoi}). By reusing existing standards such as W3C POI the chance for adoption is substantially increased. Furthermore, it reduces coupling because developers are not bound to use message formats linked to a specific service implementation \cite{papazoglou2007}.
-
-Before diving into a deeper description of the CitySDK API there are three fundamental aspects that should be mentioned. The API provides the following: four types of data models, methods to retrieve information concerning these same data models and also, methods and description fields that retrieve the relationships between each of them. Regarding the data models we provide the following:
->>>>>>> 6791bd49cc109bd84eb9ec45d4503ad9f40b52a9
 \begin{itemize}
 \item \textbf{\ac{POI}} describes various places in a given city, ranging from monuments and museums to eating places and cultural venues; 
 \item \textbf{Event} describes cultural events that happened or are about to happen in the city;
@@ -370,16 +361,16 @@ The libraries are written in Java, JavaScript/jQuery, PHP and Objective-C and ar
 \label{s:evaluation}
 
 \subsection{Compliance to the CitySDK performance requirements}
-CitySDK project established a performance requirement in terms of minimum number of requests per second that the platform should be able to serve, calculated from the indicators in terms of expected public adherence to the CitySDK platform at the end of the project timespan through the applications to be developed by 3rd party developers. 
+The CitySDK project established a performance requirement in terms of minimum number of requests per second that the platform should be able to serve, calculated from the indicators in terms of expected public adherence to the CitySDK platform at the end of the project timespan through the applications to be developed by 3rd party developers. 
 The calculated number was 105 requests per second. 
-In order to assure that the performance requirement of the CitySDK was fulfiled, a simple test using 150 distinct requests for \acp{POI} was performed against a CitySDK platform loaded with a database populated with real data from Lisbon municipality containing around 3800 independent \acp{POI}. 
+In order to assure that the performance requirement of the CitySDK was fulfilled, a simple test using 150 distinct requests for \acp{POIs} were performed against a CitySDK platform loaded with a database populated with real data from Lisbon municipality containing around 3800 independent \acp{POI}. 
 The tool used to perform the test was Siege\footnote{\url{http://www.joedog.org/siege-home/}} version 2.70 and the testing server was running in a Microsoft Windows 7 64bit powered by a Intel i5 processor at 2.9GHz with 8GB of RAM memory.
-A batch of 5 tests composed by 10.000 repetitions of 150 independent \acp{POI} requests was performed resulting on the final average capacity of 620 request per second which proved that the implemented CitySDK platform was fully compliant with the required performance capacity.
+A batch of 5 tests composed by 10.000 repetitions of 150 independent \acp{POIs} requests was performed resulting on the final average capacity of 620 requests per second which proved that the implemented CitySDK platform was fully compliant with the required performance capacity.
 
 \subsection{Proof of Concept Applications}
 To further test our client libraries and API, we developed a group of key applications in various programming languages and frameworks.
 The first application made use of the Java library. 
-We developed an Android application which displays \acp{POI}, Events and Itineraries following a user's criteria, e.g using categorical information and/or using coordinates. 
+We developed an Android application which displays \acp{POIs}, Events and Itineraries following a user's criteria, e.g using categorical information and/or using coordinates. 
 It displays the retrieved data in both list and map format (in the case of the Itineraries, it would draw the route itself). 
 Its main goal is to use the API to its fullest and demonstrate the various possibilities for applications.
 
@@ -400,16 +391,16 @@ The Objective-C library was not ignored, since an application is being developed
 \section{Conclusions}
 \label{s:conclusions}
 This article presents the \ac{citysdk} Tourism API, which is based on the data model defined by the \ac{W3C} \ac{poi} \ac{wg}.
-This API provides access to information about \ac{POI}, Events and Itineraries, enabling municipalities, regional or national governments as well as other public or private entities to publish touristic information for developers to incorporate into their applications.
+This API provides access to information about \ac{POIs}, Events and Itineraries, enabling municipalities, regional or national governments as well as other public or private entities to publish touristic information for developers to incorporate into their applications.
 This open-data model is expected to increase the market for tourism applications while lowering the cost of entry.
 The increased competition should drive down application costs while increasing their quality, benefiting tourists.
 Data publishers also benefit from increased exposure, increasing the appeal and visibility of their attractions.
 
 Besides the API definition, a reference server implementation and client libraries for the most popular programming languages have been made available in the context of the \ac{citysdk} project.
-This will facilitate the adoption of \ac{citysdk} Tourism API outside the project.
+This needs to facilitate the adoption of \ac{citysdk} Tourism API outside the project.
 
 In the future, we intend to follow the implementation of the \ac{citysdk} Tourism API in several cities and refine the API as new challenges arise.
-In the near future we intend to develop processes for facilitating the management of a worldwide directory for \ac{citysdk} Tourism API endpoints, enabling new cities to easily join this service.
+In the near future we plan to develop processes for facilitating the management of a worldwide directory for \ac{citysdk} Tourism API endpoints, enabling new cities to easily join this service.
 A single endpoint is crucial for enabling existing applications to take advantage of new \ac{citysdk} Tourism API deployments as they become available.
 
 Developer keys are often used to identify developers, providing a way for server owners to throttle API usage in order to deter heavy-hitters and providing an incentive for programmers to produce efficient code.
