@@ -66,7 +66,20 @@ Geert Monsieur\affil{4}}
 \corraddr{E-mail: ricardo.pereira@inesc-id.pt}
 
 \begin{abstract}
-To be written later.
+Tourism is a major social and cultural activity with relevant economic impact.
+In an effort to promote their attractions with tourists, some cities have adopted the open-data model, publishing data for programmers to use in their own applications.
+Unfortunately each city does it in its own way.
+
+A common API for accessing this data would enable applications to use data from several cities, increasing their potential market while reducing the development costs.
+This would benefit developers, cities, which benefit from increased exposure, and tourists, who benefit from better and cheaper applications due to competition.
+
+This article presents the CitySDK Tourism API, which aims to provide access to information about Points of Interest, events and itineraries.
+%The API is based on the data model proposed by the W3C POI WG.
+It was designed in order to be used by municipalities, regional or national governments as well as other public or private entities interested in publishing touristic information.
+The API comprehends a delegation model which enables one server to guide an application towards other servers which have more detailed information, effectively allowing applications to access worldwide information by only knowing a single API endpoint.
+
+The API was created in the context of the CitySDK project, through which a server reference implementation, client libraries and a set of demonstration applications have also been made available, in order to facilitate adoption by cities and application developers.
+
 \end{abstract}
 
 \maketitle
@@ -361,6 +374,13 @@ At last, we developed a Augmented Reality application using the Layar framework 
 This application simply makes use of the position, camera and sensors of the user's device to display information about the surroundings and/or the building being displayed in the screen.
 
 The Objective-C library was not ignored, since an application is being developed at the moment.
+
+% talk about the benefits of the API. new business models etc.
+% companies which run directories for small bussiness to provide detailed info
+% benefits and exemples of delegation
+% museum capacity and queue lenght
+% disabled info
+
 
 \section{Conclusions}
 \label{s:conclusions}
