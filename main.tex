@@ -336,29 +336,31 @@ As a final mention for the implementation details we present our client stubs.
 
 To facilitade the development cycles of potential developers, we provided four libraries which abstract the use of the API and parsing of the received data. These libraries are very similar in usage as they provide equal naming conventions for methods to perform requests, as well, as to read any of the received data.
 
-The libraries are written in Java, JavaScript/jQuery, PHP and Objective-C and are available online as well as their corresponding documentation and usage examples.
+The libraries are written in Java, JavaScript/jQuery, PHP and Objective-C and are available online as well as their corresponding documentation and usage examples. They can be found through the project's website~\footnote{\url{http://www.citysdk.eu/developers/}}.
 
 \section{Evaluation}
 \label{s:evaluation}
 
 \subsection{Compliance to the CitySDK performance requirements}
-CitySDK project established a performance requirement in terms of minumm number of requests per second that the platform should be able to serve, calculated from the indicators in terms of expected public adherence to the CitySDK platform at the end of the project timespan through the applications to be developed by 3rd party developers. The calculated number was 105 requests per second. 
-In order to assure that the performance requirement of the CitySDK was fulfiled, a simple test using 150 distinct requests for points of interest was performed against a CitySDK platform loaded with a database populated with real data from Lisbon municipality containing around 3800 independent points of interest. The tool used to perform the test was Siege\footnote{\url{http://www.joedog.org/siege-home/}} version 2.70 and the testing server was running in a Microsoft Windows 7 64bit powered by a Intel i5 processor at 2.9GHz with 8GB of RAM memory.
-A batch of 5 tests composed by 10.000 repetitions of 150 independent point of interest requests was performed resulting on the final average capacity of 620 request per second which proved that the implemented CitySDK platform was fully compliant with the required performance capacity.
+CitySDK project established a performance requirement in terms of minimum number of requests per second that the platform should be able to serve, calculated from the indicators in terms of expected public adherence to the CitySDK platform at the end of the project timespan through the applications to be developed by 3rd party developers. 
+The calculated number was 105 requests per second. 
+In order to assure that the performance requirement of the CitySDK was fulfiled, a simple test using 150 distinct requests for \acp{POI} was performed against a CitySDK platform loaded with a database populated with real data from Lisbon municipality containing around 3800 independent \acp{POI}. 
+The tool used to perform the test was Siege\footnote{\url{http://www.joedog.org/siege-home/}} version 2.70 and the testing server was running in a Microsoft Windows 7 64bit powered by a Intel i5 processor at 2.9GHz with 8GB of RAM memory.
+A batch of 5 tests composed by 10.000 repetitions of 150 independent \acp{POI} requests was performed resulting on the final average capacity of 620 request per second which proved that the implemented CitySDK platform was fully compliant with the required performance capacity.
 
 \subsection{Proof of Concept Applications}
 To further test our client libraries and API, we developed a group of key applications in various programming languages and frameworks.
-The first application made use of the Java library. We developed an Android application which displays \acp{POI}, Events and Itineraries following a user's criteria, e.g using categorical information and/or using coordinates. It displays the retrieved data in both list and map format (in the case of the Itineraries, it would draw the route itself). Its main goal is to use the API to its fullest and demonstrate the various possibilities for applications.
+The first application made use of the Java library. 
+We developed an Android application which displays \acp{POI}, Events and Itineraries following a user's criteria, e.g using categorical information and/or using coordinates. 
+It displays the retrieved data in both list and map format (in the case of the Itineraries, it would draw the route itself). 
+Its main goal is to use the API to its fullest and demonstrate the various possibilities for applications.
 
 We've also developed a set of applications making use of the JavaScript/jQuery library. These set of applications are an Event's calendar, and thus it makes specific use of Events and time/categories-related searches and a Map displaying all types of data models.
 
-At last, we developed a Augmented Reality application using the Layar framework by developing a PHP web-server. Thus, in this case we used the PHP library. This application simply makes use of the position, camera and sensors of the user's device to display information about the surroundings and/or the building being displayed in the screen.
+At last, we developed a Augmented Reality application using the Layar framework by developing a PHP web-server and thus, in this case, we used the PHP library. 
+This application simply makes use of the position, camera and sensors of the user's device to display information about the surroundings and/or the building being displayed in the screen.
 
 The Objective-C library was not ignored, since an application is being developed at the moment.
-
-Evaluate the architecture from other perspectives: performance - http load balancing + delegation to multiple servers; ??
-
-
 
 \section{Conclusions}
 \label{s:conclusions}
@@ -384,7 +386,7 @@ Currently we are working on a model for distributed developer keys issuing which
 \acks
 The \ac{citysdk} project is financed by the European Commission under the Information and Communication Technologies Policy Support Programme (ICT PSP) as part of the Competitiveness and Innovation framework Programme (CIP).
 
-This work was partially supported by national funds through FCT – Fundação para a Ciência e a Tecnologia, under project PEst-OE/EEI/LA0021/2013
+This work was partially supported by national funds through FCT – Funda\c c\~ao para a Ci\^encia e a Tecnologia, under project PEst-OE/EEI/LA0021/2013
 
 \bibliographystyle{wileyj}
 \bibliography{references}
