@@ -97,8 +97,8 @@ Furthermore, municipalities are limited in the types of applications they can pr
 Making data available to third parties is often a better investment and many entities have followed the open-data path.
 With access to data, programmers bear the costs and risk, but are free to integrate data from several sources to create novel applications.
 Market forces should drive innovation, creating the applications tourists want.
-By publishing data, municipalities may also aid in the creation of local businesses exploiting this data.
-Municipalities may still be forced to publish some applications on their own, should they deem them necessary but the market not. 
+By publishing data openly, municipalities may also aid in the creation of local businesses exploiting this data~\cite{6525605}.
+Municipalities may still be forced to publish some applications on their own, should they deem them necessary, but the market not believe them lucrative. 
 Still, the open-data model is not without flaws as each entity publishes different datasets using different data formats.
 Applications will be restricted to the cities which provide the data required for that application.
 Furthermore, programmers are forced to invest into dealing with the particularities of each data representation format, thus limiting the number of data sources which can be included into an application.
@@ -142,13 +142,17 @@ Finally, Section \ref{s:conclusions} presents the conclusions and describes futu
 %add more description as we add more subsections
 In this section we will present some of the studies and working groups related with smart cities in general.  
 
-\subsection{\acf{W3C} \acf{POI} Working Group}
+\subsection{\acs{W3C} \acl{POI} \acs{wg}}
 \label{section:poi-wg}
-The \ac{W3C} is an international community where Member organizations, a full-time staff, and the public work together to develop Web standards. This community is led by Web inventor Tim Berners-Lee and CEO Jeffrey Jaffe. 
+The \ac{W3C} is an international community where member organizations, a full-time staff, and the public work together to develop Web standards. 
+This community is led by Web inventor Tim Berners-Lee and CEO Jeffrey Jaffe. 
 
-One of the its working groups is the \ac{W3C} POI~\cite{w3c-poi} and its mission is to develop technical specifications for the representation of \ac{POI} information on the Web. Its Core defines a generic, flexible, lightweight and extensible \ac{POI} data model, and one normative syntax for the data model based on \acf{XML}. Although \ac{XML} is the primary model for this specification, other formats are also possible, such as \acf{JSON}.
+One of its \acp{wg} is the \ac{W3C} \ac{POI} and its mission is to develop technical specifications for the representation of \ac{POI} information on the Web~\cite{w3c-poi}. 
+Its Core Recommendation draft defines a generic, flexible, lightweight and extensible \ac{POI} data model, and one normative syntax for the data model based on \acf{XML}.
+Although \ac{XML} is the primary model for this specification, other formats are also possible, such as \acf{JSON}.
 
-The data model is shown in Figure~\ref{fig:data-model}. A brief explanation is given next.
+The data model is shown in Figure~\ref{fig:data-model}~\cite{w3c-poi}.
+A brief explanation is given next.
 
 \begin{figure*}
 \centering
@@ -157,17 +161,32 @@ The data model is shown in Figure~\ref{fig:data-model}. A brief explanation is g
 \label{fig:data-model}
 \end{figure*}
 
-The data model comprises of six entities:
+The data model comprises six entities:
 \begin{itemize}
-\item \textbf{POIBaseType} is the common entity from which the majority of POI entities are derived. It provides basic properties related with its authorship, licensing, modification dates and identification allowing each element to carry distinct information;
+\item \textbf{POIBaseType} is the common entity from which the majority of \ac{POI} entities are derived.
+It provides basic properties related with its authorship, licensing, modification dates and identification allowing each element to carry distinct information;
 \item \textbf{POITermType} is an abstract entity derived from POIBaseType and adds properties for the management of categorical descriptions (such as the ones seen in category), link, label, author, license and time properties of POIType;
-\item \textbf{POIType} is an abstract entity derived from POIBaseType and adds entities for describing, labeling, categorizing and indicating the time span of a POI or group of POIs. This entity also incudes linking elements to other POIs, external web resources or metadata;
-\item \textbf{Location} is an entity the inherits from POIBaseType and provides a flexible description of the location of a POI. A Location can be represented using geodetic coordinates for the center of the POI, line, polygon, civic address,  undetermined (representing unresolved locations) or bounding box (relationship element);
-\item \textbf{POI} inherits from POIType and adds the Location entity for describing the location of the POI;
-\item Finally, \textbf{POIS} also derives from POIType and can have one or more children entities of type POI.
+\item \textbf{POIType} is an abstract entity derived from POIBaseType and adds entities for describing, labeling, categorizing and indicating the time span of a \ac{POI} or group of \ac{POIs}.
+This entity also incudes linking elements to other POIs, external web resources or metadata;
+\item \textbf{Location} is an entity the inherits from POIBaseType and provides a flexible description of the location of a \ac{POI}.
+A Location can be represented using geodetic coordinates for the center of the POI, line, polygon, civic address,  undetermined (representing unresolved locations) or bounding box (relationship element);
+\item \textbf{POI} inherits from POIType and adds the Location entity for describing the location of the \ac{POI};
+\item Finally, \textbf{POIS} also derives from POIType and can have one or more children entities of type \ac{POI}.
 \end{itemize}
 
-This model is used within our API to model various types of data, as described in section~\ref{section:w3cpoi}.
+This model is flexible enough to be used within our API to model the various types of data (\ac{poi}, events and thematic itineraries) required.
+It use is described in section~\ref{section:w3cpoi}.
+
+\subsection{EventsML-G2}
+
+EventsML-G2\footnote{\url{http://www.iptc.org/site/News_Exchange_Formats/EventsML-G2/}} is a standard for collecting and distributing structured event information. 
+This standard is a member of the family of the IPTC G2-Standards, built on a structural and function framework called the IPTC News Architecture (NAR), and shares many of its components with the other standards of this family. 
+Additionally, the EventsML-G2 makes use of well known industry standards, since its syntax is build on W3C's XML Schema and fully complies with the basic notion of the Semantic Web, the Resource Description Framework (RDF).
+
+One of the main features of the EventsML-G2 standard is it fitness to transmit information (facts) about a specific event.
+Its comprehensiveness and extensibility makes the standard suitable for covering a big magnitude of event types and cover multiple information facts about a specific event either by literal text (free text) or by codes from specified vocabularies. 
+
+
 
 \subsection{Open311 GeoReport API}
 
@@ -179,18 +198,11 @@ The current specification is focused on location-based non-emergency issues such
 
 The API is a RESTful API over HTTP that supports both XML and JSON.
 It consists of two main kinds of resources: \emph{services} (i.e. things that a municipality can offer to a citizen) and \emph{service requests} (i.e. an issue reported by a citizen).
-The methods that are included in the API support a sequence of interactions where a person first sees a list of available service types, selects one and creates a new service request, and then is able to track the status of that request and other requests.
+The methods that are included in the API support a sequence of interactions where a person first sees a list of available service types, selects one and creates a new service request, and then is able to track the status of that and other requests.
 However, each method can be accessed independently and some applications may only be focused on querying existing service requests to do analytics.
 Similarly, the CitySDK Tourism API supports different kind of interactions (e.g. listing routes, listing the POIs of a route, retrieving a POI, etc.).
 oi
-\subsection{EventsML-G2}
 
-EventsML-G2\footnote{\url{http://www.iptc.org/site/News_Exchange_Formats/EventsML-G2/}} is a standard for collecting and distributing structured event information. 
-This standard is a member of the family of the IPTC G2-Standards, built on a sructural and function framework called the IPTC News Architecture (NAR), and shares many of its components with the other standards of this family. 
-Additionally, the EventsML-G2 makes use of well known industry standards, since its syntax is build on W3C's XML Schema and fully complies with the basic notion of the Semantic Web, the Resource Description Framework (RDF).
-
-One of the main features of the EventsML-G2 standard is it fitness to transmit information (facts) about a specific event.
-Its comprehensiveness and extensibility makes the standard suitable for covering a big magnitude of event types and cover multiple information facts about a specific event either by literal text (free text) or by codes from specified vocabularies. 
 
 
 
@@ -344,7 +356,9 @@ Evaluate the architecture from other perspectives: performance - http load balan
 \label{s:conclusions}
 
 \acks
-thank you
+The \ac{citysdk} project is financed by the European Commission under the Information and Communication Technologies Policy Support Programme (ICT PSP) as part of the Competitiveness and Innovation framework Programme (CIP).
+
+This work was partially supported by national funds through FCT – Fundação para a Ciência e a Tecnologia, under project PEst-OE/EEI/LA0021/2013
 
 \bibliographystyle{wileyj}
 \bibliography{references}
