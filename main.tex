@@ -124,7 +124,7 @@ The path taken by municipalities has also been traced by other entities related 
 \subsection{CitySDK}
 \label{s:citysdk}
 
-If the same data was made available in the same format by several entities, programmers would be able to reach larger audiences with a smaller investment. 
+If the same touristic data was made available in the same format by several entities, programmers would be able to reach larger audiences with a smaller investment. 
 This would increase competition and tourists would benefit from more applications.
 Awareness about the problem exists and efforts are being made to solve the current open-data fragmentation issue.
 
@@ -132,7 +132,7 @@ Awareness about the problem exists and efforts are being made to solve the curre
 The cities of Amsterdam, Barcelona, Helsinki, Istanbul, Lamia, Lisbon, Manchester and Rome are involved.
 One of the most important goals of \ac{citysdk} is to create an ecosystem in which the work of an application developer is facilitated by having unified and open city interfaces available across different cities in Europe. 
 This means that it should be relatively easy for developers to make use of touristic data coming from multiple European cities, because in such an ecosystem data access is open and unified. 
-\ac{citysdk} designs and develops three separate APIs: one for participation services (e.g. FixMyStreet), one for mobility data (e.g. public transport data) and one for touristic information. 
+\ac{citysdk} designs and develops three different unifying APIs: one for participation services (e.g. FixMyStreet), one for mobility data (e.g. public transport data) and one for touristic information. 
  
 In this article, we present the third API, referred to as the \emph{CitySDK Tourism API}, and show how it addresses the problems that municipalities and developers face. 
 The CitySDK Tourism API enables access to information about \ac{POIs}, events and thematic itineraries.
@@ -246,7 +246,7 @@ We now present the key features of the API.
 \label{section:w3cpoi}
 As mentioned before, our API provides four data models: Points of Interest, Events, Itineraries and Categorization data. These models are mapped using the W3C POI Model presented in section~\ref{section:poi-wg}. We will now present how we modelled each data type.
 
-The \textbf{\acf{POI}} are the most easily modelled element of the API. Since the W3C POI Model is specific for this type of data we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the \textit{POI} entities directly. It should be mentioned that, since the \ac{POI} is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description, that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of \ac{POI}. Such list is described by the \textit{POIS} entity, but it does not use the descriptive properties of \textit{POIType}.
+The \textbf{\acf{POI}} are the most easily modelled element of the API. Since the W3C POI Model is specific for this type of data we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the \textit{POI} entities directly. It should be mentioned that, since the \ac{POI} is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description, that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of \ac{POI}. Such list is described by the \textit{POI} entity, but it does not use the descriptive properties of \textit{POIType}.
 
 The \textbf{Events} are modelled the same way the \acp{POI} were, but instead of having a \textit{Location} entity completly specified, we used the \textit{relationship} property of the same entity to relate a given Event to a \ac{POI} and ommited the \textit{address} and \textit{undetermined} properties. So, we have an Event completly described using the \textit{POI} entity and use the \textit{relationship} property to also specify and descibe the location of the Event. An Events list is modeled using the \textit{POIS} entity, much like the \acp{POI}, but it does not have a different granularity and the root name is \textit{event} instead of \textit{poi}.
 
