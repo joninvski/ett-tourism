@@ -178,10 +178,10 @@ The data model comprises six entities:
 \item \textbf{POIBaseType} is the common entity from which the majority of \ac{POI} entities are derived.
 It provides basic properties related with its authorship, licensing, modification dates and identification allowing each element to carry distinct information;
 \item \textbf{POITermType} is an abstract entity derived from POIBaseType and adds properties for the management of categorical descriptions (such as the ones seen in category), link, label, author, license and time properties of POIType;
-\item \textbf{POIType} is an abstract entity derived from POIBaseType and adds entities for describing, labeling, categorizing and indicating the time span of a \ac{POI} or group of \ac{POIs}.
+\item \textbf{POIType} is an abstract entity derived from POIBaseType and adds entities for describing, labeling, categorizing and indicating the time span of a \ac{POI} or group of \acp{POI}.
 This entity also incudes linking elements to other POIs, external web resources or metadata;
-\item \textbf{Location} is an entity the inherits from POIBaseType and provides a flexible description of the location of a \ac{POI}.
-A Location can be represented using geodetic coordinates for the center of the POI, line, polygon, civic address,  undetermined (representing unresolved locations) or bounding box (relationship element);
+\item \textbf{Location} is an entity that inherits from POIBaseType and provides a flexible description of the location of a \ac{POI}.
+A Location can be represented using geodetic coordinates for the center of the POI, line, polygon, civic address, undetermined (representing unresolved locations) or bounding box (relationship element);
 \item \textbf{POI} inherits from POIType and adds the Location entity for describing the location of the \ac{POI};
 \item Finally, \textbf{POIS} also derives from POIType and can have one or more children entities of type \ac{POI}.
 \end{itemize}
@@ -201,8 +201,6 @@ It consists of two main kinds of resources: \emph{services} (i.e. things that a 
 The methods that are included in the API support a sequence of interactions where a person first sees a list of available service types, selects one and creates a new service request, and then is able to track the status of that and other requests.
 However, each method can be accessed independently and some applications may only be focused on querying existing service requests to do analytics.
 Similarly, the \ac{citysdk} Tourism API supports different kind of interactions (e.g. listing routes, listing the \acp{poi} of a route, retrieving a \ac{poi}, etc.).
-
-
 
 
 \section{CitySDK Tourism API}
@@ -260,10 +258,6 @@ This feature allowed our system to delegate responsibilities, as we will see in 
 
 \subsection{Delegation}
 \label{delegation}
-
-different roles: programmer, city, museum, world wide directory.
-
-
 As mentioned in Section~\ref{s:api-description} we designed an API based on hypermedia content. Such feature allows the use of delegation between the various entities involved in the system: a world-wide directory containing the endpoints of CitySDK-enabled servers; the city servers providing CitySDK data; and a more granular server provided by museums or any other venues which give more detailed information about that specific \ac{POI}, Event or Itinerary. Figure~\ref{fig:delegation} shows a diagram of the interactions between each entity.
 
 \begin{figure}
@@ -286,7 +280,7 @@ This section describes the implementation details of the API framework and, in s
 In general terms, the implementation of the platform was planned having in mind key points to ensure its long term sustainability and scalability, adapted not only for the demands expected for the CitySDK project during its development and deployment lifespan but also for its expansion to other cities with different profiles, in terms of expected client demand and provided volume of open-data.
 
 \subsection{Platform Architecture}
-This sub-section describes the architecture of the implemented CitySDK platform and its composing components, as shown on Figure \ref{fig:architecture}. 
+Figure \ref{fig:architecture} shows the composing components of the architecture of the implemented CitySDK platform. 
 
 \begin{figure}[!ht]
 \centering
@@ -295,7 +289,12 @@ This sub-section describes the architecture of the implemented CitySDK platform 
 \label{fig:architecture}
 \end{figure}
 
-In the platform's architecture, the city acts as a data provider who provides one or more relevant touristic information datasets. CitySDK platform is capable of incorporating several distinct data sources by using a modular approach where each one of the data sources provide their information through a Data Adapter module. The Data Adapter module is a component developed to retrieve raw data from a data source in its native format (xml, json, csv or other) using the data source's native access form (web service, file, database or other) and provide the touristic data (regarding points of interest, events and itineraries as described in the previous sections) to be stored in the platform in the W3C POI data format based on the module shown on Figure \ref{fig:data-model}. The Data Adapter module interacts with the CitySDK platform by invoking its Authenticated data administration REST API for manipulating (inserting, updating or deleting) data elements. The Data Adapter module not only responsible for inserting data elements in the platform but also for maintaining them by updating or deleting the data elements as needed through the platform's life. In most common cases each data source should have its Data Adapter module but it is also possible to foresee a scenario where a single Data Adapter module retrieves from several data sources if they are similar in terms of access and provide data in a similar format. Despite of not being the case for the example implementation of the platform in Lisbon municipality scenario neither in the core scope of the CitySDK project's requirements, the platform owner may allow third party data sources (i.e. not controlled by the platform owner such as commercial partners) to insert and maintain data in the platform; the platform is capable managing several distinct data owners by using its authentication and data ownership mechanism.
+In the platform's architecture, the city acts as a data provider who provides one or more relevant touristic information datasets. CitySDK platform is capable of incorporating several distinct data sources by using a modular approach where each one of the data sources provide their information through a Data Adapter module. 
+The Data Adapter module is a component developed to retrieve raw data from a data source in its native format (XML, JSON, CSV or other) using the data source's native access form (web service, file, database or other) and provide the touristic data (regarding \acp{POI}, Events and Itineraries) to be stored in the platform in the data format presented earlier. 
+The Data Adapter module interacts with the CitySDK platform by invoking its Authenticated data administration REST API for manipulating (inserting, updating or deleting) data elements. 
+The Data Adapter module is not only responsible for inserting data elements in the platform but also for maintaining them by updating or deleting the data elements as needed through the platform's life. 
+In most common cases each data source should have its Data Adapter module but it is also possible to foresee a scenario where a single Data Adapter module retrieves from several data sources if they are similar in terms of access and provide data in a similar format. 
+Despite of not being the case for the example implementation of the platform in Lisbon municipality scenario neither in the core scope of the CitySDK project's requirements, the platform owner may allow third party data sources (i.e. not controlled by the platform owner such as commercial partners) to insert and maintain data in the platform; the platform is capable of managing several distinct data owners by using its authentication and data ownership mechanism.
 
 Despite of the CitySDK's platform having a single API endpoint, it can be divided in two distinct conceptual APIs: the public API and the data administration API. The public API is the API where the client end-user applications (e.g. mobile or web applications) can interact to retrieve the touristic data available in the platform by using the available access and search methods; although not implemented at the time of writing, it is planned this public API will be enhanced with a access key system, similar to the one found in some third party interned based services such as Google Maps, enabling keys to be provided to application developers for use in their applications to access the platform; the intent of this access key system is not to restrict access to the CitySDK platform (as a non-keyed access will be always available with limited/lower quality of service) but to prevent abuse and at the same time provide some feedback to the platform owners on the used client applications. The second API, the data administration API, requiring a valid authentication to access it, is the interface to be used for the purpose of manipulating data elements (points of interest, events, itineraries and their respective categories) in the platform. This data administration interface is used by the Data Adapter modules to maintain their data in the platform, enabling the operations of inserting new data elements, update or deletion of the existing elements in the platform. All the data elements operated through the data administration API are verified against a set of rules and constraints needed to maintain the sanity of the platform and its data.
 
