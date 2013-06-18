@@ -139,8 +139,20 @@ Finally, Section \ref{s:conclusions} presents the conclusions and describes futu
 
 \section{Related work}
 \label{s:related-work}
-%add more description as we add more subsections
-In this section we will present some of the studies and working groups related with smart cities in general.  
+The need for common data representation or APIs for tourism data was been present for some time.
+In this section we present two major efforts in this field:  EventsML-G2 and \ac{W3C} \ac{POI} \ac{wg}.
+We also discuss the Open311 GeoReport API as an example a smartcity API which has successfully been implemented across several cities.
+
+\subsection{EventsML-G2}
+EventsML-G2 is a standard for collecting and distributing structured event information, aimed at conveying event information in a news industry environment~\cite{eventsml}. 
+This standard is a member of the family of the \ac{iptc} G2-Standards, built on a structural and function framework called the \ac{iptc} News Architecture (NAR), and shares many of its components with the other standards of this family. 
+Additionally, the EventsML-G2 makes use of well known industry standards, since its syntax is build on W3C's XML Schema and fully complies with the basic notion of the Semantic Web, the Resource Description Framework (RDF).
+
+One of the main features of the EventsML-G2 standard is it ability to transmit information (facts) about a specific event.
+Its comprehensiveness and extensibility makes the standard suitable for covering a big magnitude of event types and cover multiple information facts about a specific event either by literal text (free text) or by codes from specified vocabularies. 
+
+Event though EventsML-G2 can convey information about a \ac{poi} where an event takes place, that is not its focus.
+Also, as it strives to represent all types of events, EventsML-G2 is a complex standard, making it difficult to implement and use.
 
 \subsection{\acs{W3C} \acl{POI} \acs{wg}}
 \label{section:poi-wg}
@@ -174,23 +186,11 @@ A Location can be represented using geodetic coordinates for the center of the P
 \item Finally, \textbf{POIS} also derives from POIType and can have one or more children entities of type \ac{POI}.
 \end{itemize}
 
-This model is flexible enough to be used within our API to model the various types of data (\ac{poi}, events and thematic itineraries) required.
-It use is described in section~\ref{section:w3cpoi}.
-
-\subsection{EventsML-G2}
-
-EventsML-G2\footnote{\url{http://www.iptc.org/site/News_Exchange_Formats/EventsML-G2/}} is a standard for collecting and distributing structured event information. 
-This standard is a member of the family of the IPTC G2-Standards, built on a structural and function framework called the IPTC News Architecture (NAR), and shares many of its components with the other standards of this family. 
-Additionally, the EventsML-G2 makes use of well known industry standards, since its syntax is build on W3C's XML Schema and fully complies with the basic notion of the Semantic Web, the Resource Description Framework (RDF).
-
-One of the main features of the EventsML-G2 standard is it fitness to transmit information (facts) about a specific event.
-Its comprehensiveness and extensibility makes the standard suitable for covering a big magnitude of event types and cover multiple information facts about a specific event either by literal text (free text) or by codes from specified vocabularies. 
-
-
+This model is flexible and extensible enough to be used within \ac{citysdk} Tourism API to model the various types of data (\ac{poi}, events and thematic itineraries) required.
+Its use is described in section~\ref{section:w3cpoi}.
 
 \subsection{Open311 GeoReport API}
-
-The Open311 GeoReport\footnote{http://www.open311.org} API is a standard API that is quite popular among cities in the United States of America.
+The Open311 GeoReport API~\cite{open311} is a standard that is quite popular among cities in the United States of America.
 The API allows to both view and report issues which government entities like cities are responsible for addressing.
 Traditionally, such issues have been handled by custom web forms or phone based call centers (sometimes using the 311 phone number or other short-code).
 The Open311 GeoReport API is designed to allow both government and third party developers to create new applications for submitting and viewing the reports.
@@ -200,21 +200,8 @@ The API is a RESTful API over HTTP that supports both XML and JSON.
 It consists of two main kinds of resources: \emph{services} (i.e. things that a municipality can offer to a citizen) and \emph{service requests} (i.e. an issue reported by a citizen).
 The methods that are included in the API support a sequence of interactions where a person first sees a list of available service types, selects one and creates a new service request, and then is able to track the status of that and other requests.
 However, each method can be accessed independently and some applications may only be focused on querying existing service requests to do analytics.
-Similarly, the CitySDK Tourism API supports different kind of interactions (e.g. listing routes, listing the POIs of a route, retrieving a POI, etc.).
-oi
+Similarly, the \ac{citysdk} Tourism API supports different kind of interactions (e.g. listing routes, listing the \acp{poi} of a route, retrieving a \ac{poi}, etc.).
 
-
-
-
-\subsection{Other related work???}
-
-
-opendata efforts?
- open 311 as an example?
-
-tourism and POI APIs
- W3c POI - done
- linked events
 
 
 
