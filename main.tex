@@ -331,34 +331,36 @@ As the platform must be capable of serving a high number of requests per interva
 In order to optimize the API and database load to increase the platform's potential throughput, data stored in the database is in a format similar to the W3C POI format (with some minor needed variations), almost ready for being served promptly to the requesting clients, requiring the minimal processing effort as possible in both the platform's database (in terms of number of queries and query complexity) and platform's API engine (in terms of needed processing effort to build the response to the clients).
 
 \subsection{Implementation details}
-As shown in the architecture representation (Figure~\ref{fig:architecture}), the core of the CitySDK platform is based on a main component, the application service denoted as "CitySDK Platform API" in the figure, as it provides the previously mentioned APIs (public and data administration), and is aided by a platform's database. 
+As shown in the architecture representation (Figure~\ref{fig:architecture}), the core of the CitySDK platform is based on a main component, the application service denoted as "CitySDK Platform API".
+This provides the previously mentioned APIs (public and data administration), and is aided by a platform's database. 
 
 The CitySDK application service was implemented taking in account the CitySDK platform's requirements in terms of providing a REST interface and having high information throughput capability to serve its end-user clients. 
-The application service was implemented using as base a fast and lightweight open-source REST Web Services framework named ServicStack\footnote{\url{http://www.servicestack.net/}}. The ServiceStack base framework is responsible for handling the protocol part of the CitySDK's platform interface, converting the received web requests into simple method calls and converting back the method return values into a web response. 
-Despite of being possible to run the ServiceStack base framework in a Mono\footnote{\url{http://www.mono-project.com/Main_Page}} making a Linux based environment a possible hosting solution for the CitySDK platform, for the Lisbon's platform instance a Windows\footnote{Microsoft Windows Server 2012} based environment in conjunction with the Microsoft .Net framework solution was used and remains the recommended platform while no extensive testing was performed on the platform using the alternative Linux/Mongo solution.
+The application service was implemented using as base a fast and lightweight open-source REST Web Services framework named ServiceStack\footnote{\url{http://www.servicestack.net/}}. The ServiceStack base framework is responsible for handling the protocol part of the CitySDK's platform interface, converting the received web requests into simple method calls and converting back the method return values into a web response. 
+Despite being possible to run the ServiceStack base framework in Mono\footnote{\url{http://www.mono-project.com/Main_Page}} making a Linux based environment a possible hosting solution, for the Lisbon's platform instance, a Windows Server 2012 environment in conjunction with the Microsoft .Net framework solution was used.
+This remains the recommended platform while no extensive testing is performed on the platform using the alternative Linux/Mongo solution.
 
 For the CitySDK platform's database, an open-source high performance document database named mongoDB\footnote{\url{http://www.mongodb.org/}} was used instead of the traditional relational SQL based database. 
 The choice of this database was mainly related with the high performance for the foreseen database request types. 
 This document database is the CitySDK platform data backend and stores both the platform's data models and some minor administrative data (e.g. access credentials). 
 The data models are stored in an optimal format, taking advantage of the characteristics inherited from the fact that the database in use is a document database, aiming to require the minimal effort for the platform's engine to adapt the retrieved data elements to the replies for the clients requests. 
-Although the used database is not a relational database, it gives also the possibility to index any of the stored document's attributes to enable the possibility of performing quicker indexed searches. 
+Although the used database is not a relational database, it also provides the possibility to index any of the stored document's attributes to enable the possibility of performing quicker indexed searches. 
 The database also has the desired capabilities of a \ac{gis} enabled database such as PostGIS\footnote{\url{http://postgis.net/}}, enabling the possibility to perform geographical queries to the data such as the ones required to search for a data element within a specified polygon or within a distance from a specified point in the city. 
 The flexibility of the stored data structure is also a valued property of the database, enabling the possibility to have stored objects with different characteristics, as permitted by the W3C POI model used in the CitySDK.
 
-Although Data Adapter modules are not part of the CitySDK platform's itself, they are essential for the its life and perform the important task of populating it with valuable data. 
-These modules have to be CitySDK-compliant on the data output side and datasource-compliant on the data input side, transforming the datasource's data from its native format into the W3C POI format liable to be inserted into the platform. 
+Although Data Adapter modules are not part of the CitySDK platform's itself, they are essential, as they perform the important task of populating it with valuable data. 
+These modules have to be CitySDK-compliant on the data output side and datasource-compliant on the data input side, transforming the datasource's data from its native format into the W3C POI format suitable for insertion into the platform. 
 For the case of the Lisbon implementation, a single database containing aggregated data from \acp{POI} and Events (including the relation of the \ac{POI} where Events occur whenever possible) was identified, so only a Data Adapter module was needed to be implemented for the two types of data. 
-The implemented module runs as a service and, as the volatility of the data is very low (at maximum few records are updated during a day), the data updating process runs once a day during the empty hours. 
-The data updating process consists on inserting the new data elements found on the city's database on the CitySDK platform, update any change perceived on the city's database to the CitySDK platform and cleaning up the deleted data elements from the CitySDK platform. 
+The implemented module runs as a service and, as the volatility of the data is very low (at most a few records are updated each day), the data updating process runs once a day during the empty hours. 
+The data updating process consists of inserting the new data elements found on the city's database into the CitySDK platform, update any change perceived on the city's database on the CitySDK platform and cleaning up the deleted data elements from the CitySDK platform. 
 Regarding Itineraries, Lisbon municipality provides three distinct static elements (no update is made to them) and publishes them manually to be inserted in the CitySDK platform on the form of text files; these text files are imported to the platform using a Data Adapter that runs once as a stand-alone module. 
-In future, when Lisbon municipality computerizes the Itineraries data, the Data adapter can be converted to a service similar to the one used for importation of \ac{POI} and Events which automatically imports/updates the data elements.
+In the future, when Lisbon municipality computerizes the Itineraries data, the Data adapter can be converted to a service similar to the one used for importing \ac{POI} and Events, which automatically imports/updates the data elements.
 
 \subsection{Client-side stubs}
 As a final mention for the implementation details we present our client stubs. 
 
-To facilitade the development cycles of potential developers, we provided four libraries which abstract the use of the API and parsing of the received data. These libraries are very similar in usage as they provide equal naming conventions for methods to perform requests, as well, as to read any of the received data.
+To facilitade the development cycles of potential developers, we provided four libraries which abstract the use of the API and parsing of the received data. These libraries are very similar in usage, as they provide equal naming conventions for methods to perform requests, as well, as to read any of the received data.
 
-The libraries are written in Java, JavaScript/jQuery, PHP and Objective-C and are available online as well as their corresponding documentation and usage examples. They can be found through the project's website~\footnote{\url{http://www.citysdk.eu/developers/}}.
+The libraries are written in Java, JavaScript/jQuery, PHP and Objective-C and are available online, as is their corresponding documentation and usage examples. They can be found through the project's website~\footnote{\url{http://www.citysdk.eu/developers/}}.
 
 \section{Usage and Opportunities}
 \label{s:evaluation}
@@ -372,14 +374,15 @@ The libraries are written in Java, JavaScript/jQuery, PHP and Objective-C and ar
 
 \subsection{Proof of Concept Applications}
 To further test our client libraries and API, we developed a group of key applications in various programming languages and frameworks.
+
 The first application made use of the Java library. 
-We developed an Android application which displays \acp{POIs}, Events and Itineraries following a user's criteria, e.g using categorical information and/or using coordinates. 
+We developed an Android application which displays \acp{POI}, Events and Itineraries following a user's criteria, e.g using categorical information and/or using coordinates. 
 It displays the retrieved data in both list and map format (in the case of the Itineraries, it would draw the route itself). 
 Its main goal is to use the API to its fullest and demonstrate the various possibilities for applications.
 
-We've also developed a set of applications making use of the JavaScript/jQuery library. These set of applications are an Event's calendar, and thus it makes specific use of Events and time/categories-related searches and a Map displaying all types of data models.
+We've also developed a set of applications making use of the JavaScript/jQuery library. These set of applications are an Event's calendar widget, which makes specific use of Events and time/categories-related searches and a Map displaying all types of data models.
 
-At last, we developed a Augmented Reality application using the Layar framework by developing a PHP web-server and thus, in this case, we used the PHP library. 
+At last, we developed a Augmented Reality application using the Layar framework\footnote{http://www.layar.com/} by developing a PHP web-server, thus using the PHP library. 
 This application simply makes use of the position, camera and sensors of the user's device to display information about the surroundings and/or the building being displayed in the screen.
 
 The Objective-C library was not ignored, since an application is being developed at the moment.
@@ -387,15 +390,33 @@ The Objective-C library was not ignored, since an application is being developed
 \subsection{New Opportunities}
 As mentioned, this API was developed under the CitySDK project which involved 29 partners from 9 countries. 
 Ideally this API could be extended to the rest of Europe, making it a very powerful tool to make tourism related businesses and applications.
+CitySDK Tourism API provides business opportunities for application developers, cities, service provides and venue owners.
 
+Application developers are the most obvious beneficiaries of the API.
 Since each city is integrated with the same API and data models, it is much easier and less costly to create new applications and as a result of our delegation model, integrating new cities has much less overhead and complexity.
-Also, our API provides opportunities to create new businesses that either give more detailed information on our data models, or create new applications that may use our data in new ways.
+Competition will drive new uses for the data as well as integration with other data sources.
+Application development may be financed by advertisement on applications, paid applications or sponsoring.
+Higher value advertisements, geolocated and targeted specifically at tourists, may create opportunities for both developers and advertisement agencies.
+Tourist will also benefit from the availability of the applications and the quality of the data.
 
-Museums and other venues can provide useful information in two different ways: 
+Cities, especially early adopters, will benefit from a competitive advantage which will provide some differentiation, by providing tourists with information for their visit and having that information made available through the applications created by developers.
+
+The same can be said about venue owners, which may wish to provide their own CitySDK Tourism API endpoint, were detail information about the venue (\ac{POI}) and events may be provided.
+Thanks to the delegation model, applications will find these specific endpoints through the city's server.
+For instance, a museum can provide more detail information: 
 \begin{enumerate}
-\item By providing information regarding pricings, the number of people that can be accommodated, queue's lenght and waiting time or even information on handicaped access;
-\item By creating more detailed information and integrating themselves into the API due to our delegation model.
+\item By providing information regarding pricing, the number of people that can be accommodated, queue's lenght and waiting time or even information on handicaped access. Data this detailed or in real-time would prove difficult to be managed by a municipality.
+\item By providing information about \ac{POI} in the interior of the museum where, e.g. each work of art could be represented as its own \ac{POI}. An application would thus be able to provide information (e.g. description, multimedia content) about each work of art on display by using a QRCode or RFID to identify it.
 \end{enumerate} 
+
+Also, our API provides opportunities to create new businesses that either provide more detailed information or provide services to the other players.
+A company could provide high quality data on a city or area through a paid API, accessible only to paying developers.
+Other companies could run \ac{citysdk} Tourism API endpoint of behalf of others, lessening the investments required to publish data in this format.
+For instance, a bar might be interested in publishing its live music events, but be unable to run its own server.
+It could hire a \ac{citysdk} Tourism API hosting provider which would make the endpoint available while providing the bar owner with a simple webpage for updating the events information.
+
+Hosting and consulting opportunities will also be available, as specialised companies can provide a better value proposition for cities wishing to open their data using this API.
+
 
 % talk about the benefits of the API. new business models etc.
 % companies which run directories for small bussiness to provide detailed info
