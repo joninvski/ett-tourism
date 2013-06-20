@@ -246,7 +246,7 @@ We now present the key features of the API.
 \label{section:w3cpoi}
 As mentioned before, our API provides four data models: Points of Interest, Events, Itineraries and Categorization data. These models are mapped using the W3C POI Model presented in section~\ref{section:poi-wg}. We will now present how we modelled each data type.
 
-The \textbf{\acf{POI}} are the most easily modelled element of the API. Since the W3C POI Model is specific for this type of data we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the \textit{POI} entities directly. It should be mentioned that, since the \ac{POI} is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description, that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of \ac{POI}. Such list is described by the \textit{POI} entity, but it does not use the descriptive properties of \textit{POIType}.
+The \textbf{\acf{POI}} are the most easily modelled element of the API. Since the W3C POI Model is specific for this type of data, we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the \textit{POI} entities directly. It should be mentioned that, since the \ac{POI} is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description, that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of \acp{POI}. Such list is described by the \textit{POI} entity, but it does not use the descriptive properties of \textit{POIType}.
 
 The \textbf{Events} are modelled the same way the \acp{POI} were, but instead of having a \textit{Location} entity completly specified, we used the \textit{relationship} property of the same entity to relate a given Event to a \ac{POI} and ommited the \textit{address} and \textit{undetermined} properties. So, we have an Event completly described using the \textit{POI} entity and use the \textit{relationship} property to also specify and descibe the location of the Event. An Events list is modeled using the \textit{POIS} entity, much like the \acp{POI}, but it does not have a different granularity and the root name is \textit{event} instead of \textit{poi}.
 
@@ -254,9 +254,9 @@ The \textbf{Itineraries} is somewhat more complex. It is defined by using the \t
 
 The \textbf{Categories/Tags} are equal in nature, but a Category provides a recursive format that the Tags do not. Both borrow from the W3C POI Data Model, but their format is more specific to the needs of the API, rather than following the mentioned model. So, a Category simply follows the \textit{POIType} entity and allows recursiveness and a Tag borrows its properties from the \textit{POIBaseType} to specify a language and value.
 
-At last, most of the terms used in the POITermType are the suggestions made by the working group itself. However, we've added three more terms regarding price, waiting time, occupation and accessibility information for handicapped people. Such terms are identified as X-citysdk/price, X-citysdk/waiting-time, X-citysdk/occupation and X-citysdk/accessibility-textual and X-citysdk/accessibility-properties, respectively.
+At last, most of the terms used in the POITermType are the suggestions made by the working group itself. However, we've added five more terms regarding price, waiting time, occupation and accessibility information for handicapped people. Such terms are identified as X-citysdk/price, X-citysdk/waiting-time, X-citysdk/occupation and X-citysdk/accessibility-textual and X-citysdk/accessibility-properties, respectively.
 
-The presented models are used in the message format of the API, in the format of \ac{JSON} (like we have seen previously).
+The presented models are used in the message format of the API, in the format of \ac{JSON}.
 
 \subsection{API Description}
 \label{s:api-description}
@@ -264,7 +264,8 @@ The API follows the \ac{REST} architectural design~\cite{Fielding:2002:PDM:51418
 
 As for the categorization models, we have provided methods to retrieve the categorical information for each of the aforementioned models by using a list parameter indicating which type of data we wish to retrieve. Such results can also be limited by using the same limitation parameters mentioned above.
 
-Another feature of the API, and somewhat ignored by many REST systems, is complying to the \acf{HATEOAS} constraint of Fielding's dissertation. This constraint states that a client interacts with a network application entirely through hypermedia provided dynamically by the application servers. Therefore, it needs no prior knowledge about how to interact with any particular application or server beyond a generic understanding of hypermedia. We made use of this constraint in three ways:
+Another feature of the API, and somewhat ignored by many REST systems, is complying to the \acf{HATEOAS} constraint of Fielding's dissertation~\cite{fielding_phd}.
+This constraint states that a client interacts with a network application entirely through hypermedia provided dynamically by the application servers. Therefore, it needs no prior knowledge about how to interact with any particular application or server beyond a generic understanding of hypermedia. We made use of this constraint in three ways:
 \begin{enumerate}
 \item From the entry URL - the only URL that the client needs to know - we present the resources made available by the visited server;
 \item Each of the Data Models has an identification (specified by a base URL and ID) that allows to fetch information about that specific model;
@@ -277,7 +278,7 @@ This feature allowed our system to delegate responsibilities, as we will see in 
 
 \subsection{Delegation}
 \label{delegation}
-As mentioned in Section~\ref{s:api-description} we designed an API based on hypermedia content. Such feature allows the use of delegation between the various entities involved in the system: a world-wide directory containing the endpoints of CitySDK-enabled servers; the city servers providing CitySDK data; and a more granular server provided by museums or any other venues which give more detailed information about that specific \ac{POI}, Event or Itinerary. Figure~\ref{fig:delegation} shows a diagram of the interactions between each entity.
+As mentioned in Section~\ref{s:api-description} we designed an API based on hypermedia content. Such feature allows the use of delegation between the various entities involved in the system, e.g.: a world-wide directory containing the endpoints of CitySDK-enabled servers; the city servers providing CitySDK data; and a more granular server provided by museums or any other venues which give more detailed information about that specific \ac{POI}, Event or Itinerary. Figure~\ref{fig:delegation} shows a diagram of the interactions between each entity.
 
 \begin{figure}
 \centering
@@ -294,7 +295,7 @@ At last, the client may further detail the information given by the server by vi
 
 \section{Implementation}
 \label{s:implementation}
-This section describes the implementation details of the API framework and, in specific, the details of an example real implementation scenario provided for the Lisbon municipality. 
+This section describes the implementation details of the API framework and, in specific, the details of the implementation at Lisbon municipality. 
 
 In general terms, the implementation of the platform was planned having in mind key points to ensure its long term sustainability and scalability, adapted not only for the demands expected for the CitySDK project during its development and deployment lifespan but also for its expansion to other cities with different profiles, in terms of expected client demand and provided volume of open-data.
 
@@ -308,24 +309,26 @@ Figure \ref{fig:architecture} shows the composing components of the architecture
 \label{fig:architecture}
 \end{figure}
 
-In the platform's architecture, the city acts as a data provider who provides one or more relevant touristic information datasets. CitySDK platform is capable of incorporating several distinct data sources by using a modular approach where each one of the data sources provide their information through a Data Adapter module. 
+In the platform's architecture, the city acts as a data provider which provides one or more relevant touristic information datasets. 
+The CitySDK platform is capable of incorporating several distinct data sources by using a modular approach where each one of the data sources provide their information through a Data Adapter module. 
 The Data Adapter module is a component developed to retrieve raw data from a data source in its native format (XML, JSON, CSV or other) using the data source's native access form (web service, file, database or other) and provide the touristic data (regarding \acp{POI}, Events and Itineraries) to be stored in the platform in the data format presented earlier. 
 The Data Adapter module interacts with the CitySDK platform by invoking its Authenticated data administration REST API for manipulating (inserting, updating or deleting) data elements. 
 The Data Adapter module is not only responsible for inserting data elements in the platform but also for maintaining them by updating or deleting the data elements as needed through the platform's life. 
-In most common cases each data source should have its Data Adapter module but it is also possible to foresee a scenario where a single Data Adapter module retrieves from several data sources if they are similar in terms of access and provide data in a similar format. 
-Despite of not being the case for the example implementation of the platform in Lisbon municipality scenario neither in the core scope of the CitySDK project's requirements, the platform owner may allow third party data sources (i.e. not controlled by the platform owner such as commercial partners) to insert and maintain data in the platform; the platform is capable of managing several distinct data owners by using its authentication and data ownership mechanism.
+In most common cases, each data source should have its Data Adapter module but it is also possible to foresee a scenario where a single Data Adapter module retrieves from several data sources, if they are similar in terms of access and provide data in a similar format. 
+Despite not being the case for the implementation of the platform in Lisbon municipality, nor in the core scope of the CitySDK project's requirements, the platform owner may allow third party data sources (i.e. not controlled by the platform owner such as commercial partners) to insert and maintain data in the platform. 
+The platform is capable of managing several distinct data owners, by using its authentication and data ownership mechanisms.
 
-Despite of the CitySDK's platform having a single API endpoint, it can be divided in two distinct conceptual APIs: the public API and the data administration API. 
-The public API is the API where the client end-user applications (e.g. mobile or web applications) can interact to retrieve the touristic data available in the platform by using the available access and search methods. 
+Even though the CitySDK's platform has a single API endpoint, it can be divided into two distinct conceptual APIs: the public API and the data administration API. 
+The public API is the API with which the client end-user applications (e.g. mobile or web applications) interact to retrieve the touristic data available in the platform, by using the available access and search methods. 
 Although not implemented at the time of writing, an enhancement is planned for this public API by providing an access key system, similar to the one found in some third party interned based services (such as Google Maps), enabling keys to be provided to application developers for use in their applications to access the platform. 
-The intent of this access key system is not to restrict access to the CitySDK platform (as a non-keyed access will be always available with limited/lower quality of service) but to prevent abuse and at the same time provide some feedback to the platform owners on the used client applications. 
-The second API, the data administration API, requiring a valid authentication to access it, is the interface to be used for the purpose of manipulating data elements (\ac{POI}, Events, Itineraries and their respective categorical information) in the platform. 
-This data administration interface is used by the Data Adapter modules to maintain their data in the platform, enabling the operations of inserting new data elements, update or deletion of the existing elements in the platform. 
+The intent of this access key system is not to restrict access to the CitySDK platform (as a non-keyed access may be available with limited/lower quality of service) but to prevent abuse and at the same time provide some feedback to the platform owners on the used client applications. 
+The second API, the data administration API, requires a valid authentication to access it, as it is the interface to be used for the purpose of manipulating data elements (\ac{POI}, Events, Itineraries and their respective categorical information) in the platform. 
+This data administration interface is used by the Data Adapter modules to maintain their data in the platform, enabling the operations of inserting new data elements, updating or deleting existing elements. 
 All the data elements operated through the data administration API are verified against a set of rules and constraints needed to maintain the sanity of the platform and its data.
 
 The CitySDK platform maintains data retrieved in its own database. 
 As the platform must be capable of serving a high number of requests per interval of time, special care was taken when choosing and designing the platform's database. 
-In order to optimize the API and database load and increase the potential platform's throughput, data stored in the database is in a format similar to the W3C POI format (with some minor needed variations), almost ready for being served promptly to the requesting clients, requiring the minimal processing effort as possible in both the platform's database (in terms of number of queries and query complexity) and platform's API engine (in terms of needed processing effort to build the response to the clients).
+In order to optimize the API and database load to increase the platform's potential throughput, data stored in the database is in a format similar to the W3C POI format (with some minor needed variations), almost ready for being served promptly to the requesting clients, requiring the minimal processing effort as possible in both the platform's database (in terms of number of queries and query complexity) and platform's API engine (in terms of needed processing effort to build the response to the clients).
 
 \subsection{Implementation details}
 As shown in the architecture representation (Figure~\ref{fig:architecture}), the core of the CitySDK platform is based on a main component, the application service denoted as "CitySDK Platform API" in the figure, as it provides the previously mentioned APIs (public and data administration), and is aided by a platform's database. 
@@ -398,8 +401,9 @@ Museums and other venues can provide useful information in two different ways:
 % companies which run directories for small bussiness to provide detailed info
 % benefits and exemples of delegation
 % museum capacity and queue lenght
+% museums collection
 % disabled info
-
+% implementação em camaras
 
 \section{Conclusions}
 \label{s:conclusions}
