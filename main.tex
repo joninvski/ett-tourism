@@ -13,7 +13,7 @@
 \definecolor{delim}{RGB}{20,105,176}
 \colorlet{numb}{magenta!60!black}
 
-\lstdefinelanguage{json}{
+\lstdefinelanguage{json}{%
     basicstyle=\normalfont\ttfamily,
     numbers=left,
     numberstyle=\scriptsize,
@@ -57,11 +57,11 @@
 Ricardo Lopes Pereira\affil{2}\textsuperscript{,}\affil{1}\corrauth\,
 Andr\'e Oliveira\affil{3} and 
 Geert Monsieur\affil{4}}
-\address{
+\address{%
  \affilnum{1}Instituto Superior T\'ecnico, Avenida Rovisco Pais 1, 1049-001 Lisboa, Portugal\\
  \affilnum{2}INESC-ID, Av. Prof. Dr. Cavaco Silva, 2744-016 Porto Salvo, Portugal\\
  \affilnum{3}ISA - Intelligent Sensing Anywhere S.A, Rua D. Manuel I, 30, 3030-320 Coimbra, Portugal\\
- \affilnum{4}European Research Institute in Service Science (ERISS), Tilburg University, Warandelaan 2, 5037AB Tilburg, The Netherlands
+ \affilnum{4}European Research Institute in Service Science (ERISS), Tilburg University, Warandelaan 2, 5037AB Tilburg, The Netherlands%
 }
 \corraddr{E-mail: ricardo.pereira@inesc-id.pt}
 
@@ -105,7 +105,7 @@ National, regional and city authorities compile large amounts of information to 
 Municipalities understand the value of these data and many have gone through a multi-step process for sharing these data with tourists in order to improve their experience and attract them to the city.
 First municipalities created applications (web or mobile) for sharing data with the tourists.
 This approach is costly and unsuitable for most cities: the number of visitors is not large enough to recuperate the investment; municipalities are not software houses being unable to keep up with the pace of innovation. 
-Furthermore, municipalities are limited in the types of applications they can provide: e.g. publishing negative opinions written by users about an attraction could expose them to liability.
+Furthermore, municipalities are limited in the types of applications they can provide: e.g.\ publishing negative opinions written by users about an attraction could expose them to liability.
 
 Making data available to third parties is often a better investment and many entities have followed the open-data path.
 With access to data, programmers bear the costs and risk, but are free to integrate data from several sources to create novel applications.
@@ -132,7 +132,7 @@ Awareness about the problem exists and efforts are being made to solve the curre
 The cities of Amsterdam, Barcelona, Helsinki, Istanbul, Lamia, Lisbon, Manchester and Rome are involved.
 One of the most important goals of \ac{citysdk} is to create an ecosystem in which the work of an application developer is facilitated by having unified and open city interfaces available across different cities in Europe. 
 This means that it should be relatively easy for developers to make use of touristic data coming from multiple European cities, because in such an ecosystem data access is open and unified. 
-\ac{citysdk} designs and develops three different unifying APIs: one for participation services (e.g. FixMyStreet), one for mobility data (e.g. public transport data) and one for touristic information. 
+\ac{citysdk} designs and develops three different unifying APIs: one for participation services (e.g.\  FixMyStreet), one for mobility data (e.g.\  public transport data) and one for touristic information. 
  
 In this article, we present the third API, referred to as the \emph{CitySDK Tourism API}, and show how it addresses the problems that municipalities and developers face. 
 The CitySDK Tourism API enables access to information about \ac{POIs}, events and thematic itineraries.
@@ -143,10 +143,10 @@ Endpoints for the CitySDK Tourism API are being implemented in Amsterdam, Helsin
 \label{s:structure}
 This document is organised into six sections.
 In the next section an overview of efforts into providing normalised access to city data is provided.
-Section \ref{s:tourim-api} details the CitySDK Tourism API.
-Section \ref{s:implementation} describes the reference server implementation and the several client libraries which were produced to make the API easier to use.
-Opportunities and usage examples of the API are presented in Section \ref{s:evaluation}. 
-Finally, Section \ref{s:conclusions} presents the conclusions and describes future work.
+Section~\ref{s:tourim-api} details the CitySDK Tourism API\@.
+Section~\ref{s:implementation} describes the reference server implementation and the several client libraries which were produced to make the API easier to use.
+Opportunities and usage examples of the API are presented in Section~\ref{s:evaluation}. 
+Finally, Section~\ref{s:conclusions} presents the conclusions and describes future work.
 
 
 
@@ -207,26 +207,26 @@ Traditionally, such issues have been handled by custom web forms or phone based 
 The Open311 GeoReport API is designed to allow both government and third party developers to create new applications for submitting and viewing the reports.
 The current specification is focused on location-based non-emergency issues such as graffiti, potholes, and street cleaning.
 
-The API is a RESTful API over HTTP that supports both XML and JSON.
-It consists of two main kinds of resources: \emph{services} (i.e. things that a municipality can offer to a citizen) and \emph{service requests} (i.e. an issue reported by a citizen).
+The API is a RESTful API over HTTP that supports both XML and JSON\@.
+It consists of two main kinds of resources: \emph{services} (i.e.\  things that a municipality can offer to a citizen) and \emph{service requests} (i.e.\  an issue reported by a citizen).
 The methods that are included in the API support a sequence of interactions where a person first sees a list of available service types, selects one and creates a new service request, and then is able to track the status of that and other requests.
 However, each method can be accessed independently and some applications may only be focused on querying existing service requests to do analytics.
-Similarly, the \ac{citysdk} Tourism API supports different kind of interactions (e.g. listing routes, listing the \acp{poi} of a route, retrieving a \ac{poi}, etc.).
+Similarly, the \ac{citysdk} Tourism API supports different kind of interactions (e.g.\  listing routes, listing the \acp{poi} of a route, retrieving a \ac{poi}, etc.).
 
 
 \section{CitySDK Tourism API}
 \label{s:tourim-api}
-In this section, we will describe some of the key features of the CitySDK Tourism API. We will describe the message format model, how the API is designed and some features that came along with it.
+In this section, we will describe some of the key features of the CitySDK Tourism API\@. We will describe the message format model, how the API is designed and some features that came along with it.
 
-In order to address the broader goals of CitySDK (see Section \ref{s:citysdk}) a sound methodology is of critical importance to avoid the pitfalls of deploying an uncontrolled maze of APIs \cite{papazoglou2007,monsieur2012}.
-The well-adopted service oriented architecture (SOA) development lifecycle (SDLC) \cite{papazoglou2007} provides a solid foundation for service enablement in an orderly fashion so that services can be efficiently used in SOA-based smart city applications.
+In order to address the broader goals of CitySDK (see Section~\ref{s:citysdk}) a sound methodology is of critical importance to avoid the pitfalls of deploying an uncontrolled maze of APIs~\cite{papazoglou2007,monsieur2012}.
+The well-adopted service oriented architecture (SOA) development lifecycle (SDLC)~\cite{papazoglou2007} provides a solid foundation for service enablement in an orderly fashion so that services can be efficiently used in SOA-based smart city applications.
 The methodology is based on continuous refinement using a closed loop approach that facilitates designing SOA solutions (e.g. European smart city app) as assemblies of services in which each service assembly is a managed first class aspect of the solution, and, hence, amenable to analysis and change. Developers can then view an smart city app(lication) as a choreographed set of service interactions.
 
 SDLC relies on three fundamental SOA design principles: coupling, cohesion and granularity.
 These design principles need to guarantee that services are self-contained and come equipped with clearly defined boundaries and interfaces to allow for service composability. Standards and reference models (e.g. W3C POI) are crucial in coping with such design principles.
-Typically, these standards improve SOA design by defining (sector-specific) business concepts that have an high-degree of cohesion and low-degree of coupling.
-The design of the tourism API is fundamentally based on W3C POI (see Section \ref{section:w3cpoi}).
-By reusing existing standards such as W3C POI the chance for adoption is substantially increased. Furthermore, it reduces coupling because developers are not bound to use message formats linked to a specific service implementation \cite{papazoglou2007}.
+Typically, these standards improve SOA design by defining (sector-specific) business concepts that have a high-degree of cohesion and low-degree of coupling.
+The design of the tourism API is fundamentally based on W3C POI (see Section~\ref{section:w3cpoi}).
+By reusing existing standards such as W3C POI the chance for adoption is substantially increased. Furthermore, it reduces coupling because developers are not bound to use message formats linked to a specific service implementation~\cite{papazoglou2007}.
 
 Before diving into a deeper description of the CitySDK API there are three fundamental aspects that should be mentioned.
 The API provides the following: four types of data models, methods to retrieve information concerning these same data models and also, methods and description fields that retrieve the relationships between each of them.
@@ -240,13 +240,13 @@ Regarding the data models we provide the following:
 
 Each model can also be grouped into a list of its own type, that is, each data model has a listing model where each element is either a \ac{POI}, Event, Itinerary or a Category/Tag.
 
-We now present the key features of the API.
+We now present the key features of the API\@.
 
 \subsection{W3C POI Model in the API}
 \label{section:w3cpoi}
 As mentioned before, our API provides four data models: Points of Interest, Events, Itineraries and Categorization data. These models are mapped using the W3C POI Model presented in section~\ref{section:poi-wg}. We will now present how we modelled each data type.
 
-The \textbf{\acf{POI}} are the most easily modelled element of the API. Since the W3C POI Model is specific for this type of data, we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the \textit{POI} entities directly. It should be mentioned that, since the \ac{POI} is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description, that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of \acp{POI}. Such list is described by the \textit{POI} entity, but it does not use the descriptive properties of \textit{POIType}.
+The \textbf{\acf{POI}} are the most easily modelled element of the API\@. Since the W3C POI Model is specific for this type of data, we used its already specified properties to map our data model. So, the Points of Interest are mapped and described by using the \textit{POI} entities directly. It should be mentioned that, since the \ac{POI} is somewhat very detailed and verbose, we defined two granularities for this element: a minimal description, that only includes the key essential properties and a complete model, which is the original W3C POI Data Model. The minimal model is used to map each element of a list of \acp{POI}. Such list is described by the \textit{POI} entity, but it does not use the descriptive properties of \textit{POIType}.
 
 The \textbf{Events} are modelled the same way the \acp{POI} were, but instead of having a \textit{Location} entity completly specified, we used the \textit{relationship} property of the same entity to relate a given Event to a \ac{POI} and ommited the \textit{address} and \textit{undetermined} properties. So, we have an Event completly described using the \textit{POI} entity and use the \textit{relationship} property to also specify and descibe the location of the Event. An Events list is modeled using the \textit{POIS} entity, much like the \acp{POI}, but it does not have a different granularity and the root name is \textit{event} instead of \textit{poi}.
 
@@ -260,7 +260,7 @@ The presented models are used in the message format of the API, in the format of
 
 \subsection{API Description}
 \label{s:api-description}
-The API follows the \ac{REST} architectural design~\cite{Fielding:2002:PDM:514183.514185}. Thus, we designed a RESTful API over HTTP using JSON. Hence, for each of the presented models we designed various methods to obtain certain data following certain parameters. Many of the parameters are common between the \acp{POI}, Events and Itineraries, such as the ability to search for each one of them using a categorical reference, a description or using coordinates. Also, we have provided limitation parameters to allow applications to lazy load the data presented by the API. Of course, there are some parameters that are specific to the data model, e.g., if we search using a description of the \acp{POI}, one can ask for either the minimal or complete version or in the case of the Events, we can search using time spans. Furthermore, and for both \acp{POI} and Events, one can also search for the relation of a single \ac{POI}/Event with other \acp{POI}/Events. One final method is the ability to search using QR Code or Barcodes. Using a single method and providing the textual or bar code information, we retrieve any POIs, Events or Itinerary that match such information.
+The API follows the \ac{REST} architectural design~\cite{Fielding:2002:PDM:514183.514185}. Thus, we designed a RESTful API over HTTP using \ac{JSON}. Hence, for each of the presented models we designed various methods to obtain certain data following certain parameters. Many of the parameters are common between the \acp{POI}, Events and Itineraries, such as the ability to search for each one of them using a categorical reference, a description or using coordinates. Also, we have provided limitation parameters to allow applications to lazy load the data presented by the API\@. Of course, there are some parameters that are specific to the data model, e.g., if we search using a description of the \acp{POI}, one can ask for either the minimal or complete version or in the case of the Events, we can search using time spans. Furthermore, and for both \acp{POI} and Events, one can also search for the relation of a single \ac{POI}/Event with other \acp{POI}/Events. One final method is the ability to search using QR Code or Barcodes. Using a single method and providing the textual or bar code information, we retrieve any POIs, Events or Itinerary that match such information.
 
 As for the categorization models, we have provided methods to retrieve the categorical information for each of the aforementioned models by using a list parameter indicating which type of data we wish to retrieve. Such results can also be limited by using the same limitation parameters mentioned above.
 
@@ -300,7 +300,7 @@ This section describes the implementation details of the API framework and, in s
 In general terms, the implementation of the platform was planned having in mind key points to ensure its long term sustainability and scalability, adapted not only for the demands expected for the CitySDK project during its development and deployment lifespan but also for its expansion to other cities with different profiles, in terms of expected client demand and provided volume of open-data.
 
 \subsection{Platform Architecture}
-Figure \ref{fig:architecture} shows the composing components of the architecture of the implemented CitySDK platform. 
+Figure~\ref{fig:architecture} shows the composing components of the architecture of the implemented CitySDK platform.
 
 \begin{figure}[!ht]
 \centering
@@ -315,11 +315,11 @@ The Data Adapter module is a component developed to retrieve raw data from a dat
 The Data Adapter module interacts with the CitySDK platform by invoking its Authenticated data administration REST API for manipulating (inserting, updating or deleting) data elements. 
 The Data Adapter module is not only responsible for inserting data elements in the platform but also for maintaining them by updating or deleting the data elements as needed through the platform's life. 
 In most common cases, each data source should have its Data Adapter module but it is also possible to foresee a scenario where a single Data Adapter module retrieves from several data sources, if they are similar in terms of access and provide data in a similar format. 
-Despite not being the case for the implementation of the platform in Lisbon municipality, nor in the core scope of the CitySDK project's requirements, the platform owner may allow third party data sources (i.e. not controlled by the platform owner such as commercial partners) to insert and maintain data in the platform. 
+Despite not being the case for the implementation of the platform in Lisbon municipality, nor in the core scope of the CitySDK project's requirements, the platform owner may allow third party data sources (i.e.\  not controlled by the platform owner such as commercial partners) to insert and maintain data in the platform. 
 The platform is capable of managing several distinct data owners, by using its authentication and data ownership mechanisms.
 
-Even though the CitySDK's platform has a single API endpoint, it can be divided into two distinct conceptual APIs: the public API and the data administration API. 
-The public API is the API with which the client end-user applications (e.g. mobile or web applications) interact to retrieve the touristic data available in the platform, by using the available access and search methods. 
+Even though the CitySDK's platform has a single API endpoint, it can be divided into two distinct conceptual APIs: the public API and the data administration API\@. 
+The public API is the API with which the client end-user applications (e.g.\  mobile or web applications) interact to retrieve the touristic data available in the platform, by using the available access and search methods. 
 Although not implemented at the time of writing, an enhancement is planned for this public API by providing an access key system, similar to the one found in some third party interned based services (such as Google Maps), enabling keys to be provided to application developers for use in their applications to access the platform. 
 The intent of this access key system is not to restrict access to the CitySDK platform (as a non-keyed access may be available with limited/lower quality of service) but to prevent abuse and at the same time provide some feedback to the platform owners on the used client applications. 
 The second API, the data administration API, requires a valid authentication to access it, as it is the interface to be used for the purpose of manipulating data elements (\ac{POI}, Events, Itineraries and their respective categorical information) in the platform. 
@@ -336,12 +336,12 @@ This provides the previously mentioned APIs (public and data administration), an
 
 The CitySDK application service was implemented taking in account the CitySDK platform's requirements in terms of providing a REST interface and having high information throughput capability to serve its end-user clients. 
 The application service was implemented using as base a fast and lightweight open-source REST Web Services framework named ServiceStack\footnote{\url{http://www.servicestack.net/}}. The ServiceStack base framework is responsible for handling the protocol part of the CitySDK's platform interface, converting the received web requests into simple method calls and converting back the method return values into a web response. 
-Despite being possible to run the ServiceStack base framework in Mono\footnote{\url{http://www.mono-project.com/Main_Page}} making a Linux based environment a possible hosting solution, for the Lisbon's platform instance, a Windows Server 2012 environment in conjunction with the Microsoft .Net framework solution was used.
+Despite being possible to run the ServiceStack base framework in Mono\footnote{\url{http://www.mono-project.com/Main_Page}} making a Linux based environment a possible hosting solution, for the Lisbon's platform instance, a Windows Server 2012 environment in conjunction with the Microsoft \.Net framework solution was used.
 This remains the recommended platform while no extensive testing is performed on the platform using the alternative Linux/Mongo solution.
 
 For the CitySDK platform's database, an open-source high performance document database named mongoDB\footnote{\url{http://www.mongodb.org/}} was used instead of the traditional relational SQL based database. 
 The choice of this database was mainly related with the high performance for the foreseen database request types. 
-This document database is the CitySDK platform data backend and stores both the platform's data models and some minor administrative data (e.g. access credentials). 
+This document database is the CitySDK platform data backend and stores both the platform's data models and some minor administrative data (e.g.\  access credentials). 
 The data models are stored in an optimal format, taking advantage of the characteristics inherited from the fact that the database in use is a document database, aiming to require the minimal effort for the platform's engine to adapt the retrieved data elements to the replies for the clients requests. 
 Although the used database is not a relational database, it also provides the possibility to index any of the stored document's attributes to enable the possibility of performing quicker indexed searches. 
 The database also has the desired capabilities of a \ac{gis} enabled database such as PostGIS\footnote{\url{http://postgis.net/}}, enabling the possibility to perform geographical queries to the data such as the ones required to search for a data element within a specified polygon or within a distance from a specified point in the city. 
@@ -369,20 +369,20 @@ The libraries are written in Java, JavaScript/jQuery, PHP and Objective-C and ar
 %The CitySDK project established a performance requirement in terms of minimum number of requests per second that the platform should be able to serve, calculated from the indicators in terms of expected public adherence to the CitySDK platform at the end of the project timespan through the applications to be developed by 3rd party developers. 
 %The calculated number was 105 requests per second. 
 %In order to assure that the performance requirement of the CitySDK was fulfilled, a simple test using 150 distinct requests for \acp{POIs} were performed against a CitySDK platform loaded with a database populated with real data from Lisbon municipality containing around 3800 independent \acp{POI}. 
-%The tool used to perform the test was Siege\footnote{\url{http://www.joedog.org/siege-home/}} version 2.70 and the testing server was running in a Microsoft Windows 7 64bit powered by a Intel i5 processor at 2.9GHz with 8GB of RAM memory.
+%The tool used to perform the test was Siege\footnote{\url{http://www.joedog.org/siege-home/}} version 2.70 and the testing server was running in a Microsoft Windows 7 64bit powered by an Intel i5 processor at 2.9GHz with 8GB of RAM memory.
 %A batch of 5 tests composed by 10.000 repetitions of 150 independent \acp{POIs} requests was performed resulting on the final average capacity of 620 requests per second which proved that the implemented CitySDK platform was fully compliant with the required performance capacity.
 
 \subsection{Proof of Concept Applications}
 To further test our client libraries and API, we developed a group of key applications in various programming languages and frameworks.
 
 The first application made use of the Java library. 
-We developed an Android application which displays \acp{POI}, Events and Itineraries following a user's criteria, e.g using categorical information and/or using coordinates. 
+We developed an Android application which displays \acp{POI}, Events and Itineraries following an user's criteria, e.g using categorical information and/or using coordinates. 
 It displays the retrieved data in both list and map format (in the case of the Itineraries, it would draw the route itself). 
 Its main goal is to use the API to its fullest and demonstrate the various possibilities for applications.
 
 We've also developed a set of applications making use of the JavaScript/jQuery library. These set of applications are an Event's calendar widget, which makes specific use of Events and time/categories-related searches and a Map displaying all types of data models.
 
-At last, we developed a Augmented Reality application using the Layar framework\footnote{http://www.layar.com/} by developing a PHP web-server, thus using the PHP library. 
+At last, we developed an Augmented Reality application using the Layar framework\footnote{http://www.layar.com/} by developing a PHP web-server, thus using the PHP library. 
 This application simply makes use of the position, camera and sensors of the user's device to display information about the surroundings and/or the building being displayed in the screen.
 
 The Objective-C library was not ignored, since an application is being developed at the moment.
@@ -392,7 +392,7 @@ As mentioned, this API was developed under the CitySDK project which involved 29
 Ideally this API could be extended to the rest of Europe, making it a very powerful tool to make tourism related businesses and applications.
 CitySDK Tourism API provides business opportunities for application developers, cities, service provides and venue owners.
 
-Application developers are the most obvious beneficiaries of the API.
+Application developers are the most obvious beneficiaries of the API\@.
 Since each city is integrated with the same API and data models, it is much easier and less costly to create new applications and as a result of our delegation model, integrating new cities has much less overhead and complexity.
 Competition will drive new uses for the data as well as integration with other data sources.
 Application development may be financed by advertisement on applications, paid applications or sponsoring.
@@ -406,7 +406,7 @@ Thanks to the delegation model, applications will find these specific endpoints 
 For instance, a museum can provide more detail information: 
 \begin{enumerate}
 \item By providing information regarding pricing, the number of people that can be accommodated, queue's lenght and waiting time or even information on handicaped access. Data this detailed or in real-time would prove difficult to be managed by a municipality.
-\item By providing information about \ac{POI} in the interior of the museum where, e.g. each work of art could be represented as its own \ac{POI}. An application would thus be able to provide information (e.g. description, multimedia content) about each work of art on display by using a QRCode or RFID to identify it.
+\item By providing information about \ac{POI} in the interior of the museum where, e.g.\  each work of art could be represented as its own \ac{POI}. An application would thus be able to provide information (e.g.\ description, multimedia content) about each work of art on display by using a QRCode or RFID to identify it.
 \end{enumerate} 
 
 Also, our API provides opportunities to create new businesses that either provide more detailed information or provide services to the other players.
@@ -415,10 +415,10 @@ Other companies could run \ac{citysdk} Tourism API endpoint of behalf of others,
 For instance, a bar might be interested in publishing its live music events, but be unable to run its own server.
 It could hire a \ac{citysdk} Tourism API hosting provider which would make the endpoint available while providing the bar owner with a simple webpage for updating the events information.
 
-Hosting and consulting opportunities will also be available, as specialised companies can provide a better value proposition for cities wishing to open their data using this API.
+Hosting and consulting opportunities will also be available, as specialised companies can provide a better value proposition for cities wishing to open their data using this API\@.
 
 
-% talk about the benefits of the API. new business models etc.
+% talk about the benefits of the API\@. new business models etc.
 % companies which run directories for small bussiness to provide detailed info
 % benefits and exemples of delegation
 % museum capacity and queue lenght
@@ -442,7 +442,7 @@ In the near future we plan to develop processes for facilitating the management 
 A single endpoint is crucial for enabling existing applications to take advantage of new \ac{citysdk} Tourism API deployments as they become available.
 
 Developer keys are often used to identify developers, providing a way for server owners to throttle API usage in order to deter heavy-hitters and providing an incentive for programmers to produce efficient code.
-These can also be used to ban misbehaving applications from using an API.
+These can also be used to ban misbehaving applications from using an API\@.
 A worldwide directory would only make sense if developer keys are portable among different endpoints.
 Currently we are working on a model for distributed developer keys issuing which does not compromise these goals.
 
