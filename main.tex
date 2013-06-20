@@ -254,7 +254,7 @@ The \textbf{Itineraries} is somewhat more complex. It is defined by using the \t
 
 The \textbf{Categories/Tags} are equal in nature, but a Category provides a recursive format that the Tags do not. Both borrow from the W3C POI Data Model, but their format is more specific to the needs of the API, rather than following the mentioned model. So, a Category simply follows the \textit{POIType} entity and allows recursiveness and a Tag borrows its properties from the \textit{POIBaseType} to specify a language and value.
 
-At last, most of the terms used in the POITermType are the suggestions made by the working group itself. However, we've added five more terms regarding price, waiting time, occupation and accessibility information for handicapped people. Such terms are identified as X-citysdk/price, X-citysdk/waiting-time, X-citysdk/occupation and X-citysdk/accessibility-textual and X-citysdk/accessibility-properties, respectively.
+At last, most of the terms used in the \textit{POITermType} are the suggestions made by the working group itself. However, we've added five more terms regarding price, waiting time, occupation and accessibility information for handicapped people. Such terms are identified as X-citysdk/price, X-citysdk/waiting-time, X-citysdk/occupation and X-citysdk/accessibility-textual and X-citysdk/accessibility-properties, respectively.
 
 The presented models are used in the message format of the API, in the format of \ac{JSON}.
 
@@ -269,7 +269,7 @@ This constraint states that a client interacts with a network application entire
 \begin{enumerate}
 \item From the entry URL - the only URL that the client needs to know - we present the resources made available by the visited server;
 \item Each of the Data Models has an identification (specified by a base URL and ID) that allows to fetch information about that specific model;
-\item The POIs, Events and Itineraries can be further described by using a \textit{described-by} (in the links property) which indicates an entry point to another server, which can provide further data on that specific entity.
+\item The \acp{POI}, Events and Itineraries can be further described by using a \textit{described-by} (in the links property) which indicates an entry point to another server, which can provide further data on that specific entity.
 \end{enumerate}
 
 The mentioned resources indicate to the client, which models and which parameters are available in a given server. These models can be presented by the key-values found in the response message, e.g., if a \textit{find-poi} key is found, then the server supports \acp{POI}. As for the allowed searching parameters we have used the URI Template RFC~\cite{uri-template}. This way, we allowed a simple yet descriptive manner to indicate which parameters and which data is available and can be fetched.
